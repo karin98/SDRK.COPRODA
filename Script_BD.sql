@@ -3,192 +3,191 @@ CREATE DATABASE COPRODA;
 USE COPRODA;
 
 CREATE TABLE TipoDocumento (
-	IdTipoDocumento NVARCHAR(6) PRIMARY KEY
-	,TipoDocumento NVARCHAR(50)
-	,Descripcion NVARCHAR(50)
-	)
+	IdTipoDocumento VARCHAR(6) PRIMARY KEY
+	,TipoDocumento VARCHAR(50)
+	,Descripcion VARCHAR(50)
+	);
 
 CREATE TABLE Usuario (
-	Idusuario INT identity PRIMARY KEY
-	,TipoUsuario NVARCHAR(50)
-	,Nombre NVARCHAR(50)
-	,Apellido NVARCHAR(50)
-	,IdTipoDocumento NVARCHAR(6)
-	,DocumentoIdentidad NVARCHAR(20)
-	,Telefono NVARCHAR(10)
-	,Celular NVARCHAR(10)
-	,Usuario NVARCHAR(15)
-	,ClaveAcceso NVARCHAR(100)
-	,EstadoUsuario NVARCHAR(20)
-	,CreadoPor NVARCHAR(15)
+	Idusuario INT AUTO_INCREMENT PRIMARY KEY
+	,TipoUsuario VARCHAR(50)
+	,Nombre VARCHAR(50)
+	,Apellido VARCHAR(50)
+	,IdTipoDocumento VARCHAR(6)
+	,DocumentoIdentidad VARCHAR(20)
+	,Telefono VARCHAR(10)
+	,Celular VARCHAR(10)
+	,Usuario VARCHAR(15)
+	,ClaveAcceso VARCHAR(100)
+	,EstadoUsuario VARCHAR(20)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
 	,CONSTRAINT FK_TipoDocumento FOREIGN KEY (IdTipoDocumento) REFERENCES TipoDocumento(IdTipoDocumento)
-	)
+	);
 
 CREATE TABLE TipoCliente (
-	IdTipoCliente NVARCHAR(6) PRIMARY KEY
-	,TipoCliente NVARCHAR(50)
-	,Decripcion NVARCHAR(50)
-	)
+	IdTipoCliente VARCHAR(6) PRIMARY KEY
+	,TipoCliente VARCHAR(50)
+	,Decripcion VARCHAR(50)
+	);
 
 CREATE TABLE Cliente (
-	IdCliente INT identity PRIMARY KEY
-	,IdTipoCliente NVARCHAR(6)
-	,Nombre NVARCHAR(50)
-	,Apellido NVARCHAR(50)
-	,IdTipoDocumento NVARCHAR(6)
-	,DocumentoIdentidad NVARCHAR(20)
-	,RazonSocial NVARCHAR(50)
-	,RUC NVARCHAR(10)
-	,Telefono NVARCHAR(10)
-	,Celular NVARCHAR(10)
-	,Email NVARCHAR(100)
-	,EstadoCliente NVARCHAR(20)
-	,CreadoPor NVARCHAR(15)
+	IdCliente INT AUTO_INCREMENT PRIMARY KEY
+	,IdTipoCliente VARCHAR(6)
+	,Nombre VARCHAR(50)
+	,Apellido VARCHAR(50)
+	,IdTipoDocumento VARCHAR(6)
+	,DocumentoIdentidad VARCHAR(20)
+	,RazonSocial VARCHAR(50)
+	,RUC VARCHAR(10)
+	,Telefono VARCHAR(10)
+	,Celular VARCHAR(10)
+	,Email VARCHAR(100)
+	,EstadoCliente VARCHAR(20)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
 	,CONSTRAINT FK_TipoDocumento2 FOREIGN KEY (IdTipoDocumento) REFERENCES TipoDocumento(IdTipoDocumento)
 	,CONSTRAINT FK_TipoCliente FOREIGN KEY (IdTipoCliente) REFERENCES TipoCliente(IdTipoCliente)
-	)
+	);
 
 CREATE TABLE Direccion (
-	IdDireccion INT identity PRIMARY KEY
+	IdDireccion INT AUTO_INCREMENT PRIMARY KEY
 	,IdCliente INT
-	,NombreDireccion NVARCHAR(50)
-	,Calle1 NVARCHAR(50)
-	,Calle2 NVARCHAR(50)
-	,Distrito NVARCHAR(50)
-	,Departamento NVARCHAR(50)
-	,Provincia NVARCHAR(50)
-	,EstadoDireccion NVARCHAR(20)
-	,CreadoPor NVARCHAR(15)
+	,NombreDireccion VARCHAR(50)
+	,Calle1 VARCHAR(50)
+	,Calle2 VARCHAR(50)
+	,Distrito VARCHAR(50)
+	,Departamento VARCHAR(50)
+	,Provincia VARCHAR(50)
+	,EstadoDireccion VARCHAR(20)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
 	,CONSTRAINT FK_Cliente FOREIGN KEY (IdCliente) REFERENCES Cliente(IdCliente)
-	)
+	);
 
 CREATE TABLE Proovedor (
-	IdProveedor INT identity PRIMARY KEY
-	,Nombre NVARCHAR(50)
-	,Apellido NVARCHAR(50)
-	,RUC NVARCHAR(10)
-	,IdTipoDocumento NVARCHAR(6)
-	,DocumentoIdentidad NVARCHAR(20)
+	IdProveedor INT AUTO_INCREMENT PRIMARY KEY
+	,Nombre VARCHAR(50)
+	,Apellido VARCHAR(50)
+	,RUC VARCHAR(10)
+	,IdTipoDocumento VARCHAR(6)
+	,DocumentoIdentidad VARCHAR(20)
 	,IdDireccion INT
-	,Telefono NVARCHAR(10)
-	,Celular NVARCHAR(10)
-	,Email NVARCHAR(100)
-	,EstadoProveedor NVARCHAR(20)
-	,CreadoPor NVARCHAR(15)
+	,Telefono VARCHAR(10)
+	,Celular VARCHAR(10)
+	,Email VARCHAR(100)
+	,EstadoProveedor VARCHAR(20)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
 	,CONSTRAINT FK_TipoDocumento3 FOREIGN KEY (IdTipoDocumento) REFERENCES TipoDocumento(IdTipoDocumento)
 	,CONSTRAINT FK_Direccion FOREIGN KEY (IdDireccion) REFERENCES Direccion(IdDireccion)
-	)
+	);
 
 CREATE TABLE Pedido (
-	IdPedido INT identity PRIMARY KEY
+	IdPedido INT AUTO_INCREMENT PRIMARY KEY
 	,NumeroPedido INT
 	,IdUsuario INT
 	,IdCliente INT
-	,DireccionFacturacion NVARCHAR(50)
+	,DireccionFacturacion VARCHAR(50)
 	,IdDireccionEntrega INT
-	,TipoEntrega NVARCHAR(50)
+	,TipoEntrega VARCHAR(50)
 	,FechaEntrega DATETIME
-	,EstadoPedido NVARCHAR(20)
+	,EstadoPedido VARCHAR(20)
 	,FechaCambioEstado DATETIME
-	,CreadoPor NVARCHAR(15)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
 	,CONSTRAINT FK_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario)
 	,CONSTRAINT FK_Cliente2 FOREIGN KEY (IdCliente) REFERENCES Cliente(IdCliente)
 	,CONSTRAINT FK_DireccionEntrega FOREIGN KEY (IdDireccionEntrega) REFERENCES Direccion(IdDireccion)
-	)
+	);
 
 CREATE TABLE TipoComprobante (
-	IdTipoComprobante NVARCHAR(6) PRIMARY KEY
-	,TipoComprobante NVARCHAR(50)
-	,Descripcion NVARCHAR(50)
-	)
+	IdTipoComprobante VARCHAR(6) PRIMARY KEY
+	,TipoComprobante VARCHAR(50)
+	,Descripcion VARCHAR(50)
+	);
 
 CREATE TABLE TipoTransaccion (
-	IdTipoTransaccion NVARCHAR(6) PRIMARY KEY
-	,TipoTransaccion NVARCHAR(50)
-	,Descripcion NVARCHAR(50)
-	)
+	IdTipoTransaccion VARCHAR(6) PRIMARY KEY
+	,TipoTransaccion VARCHAR(50)
+	,Descripcion VARCHAR(50)
+	);
 
 CREATE TABLE ComprobantePago (
-	IdComprobantePago INT identity PRIMARY KEY
+	IdComprobantePago INT AUTO_INCREMENT PRIMARY KEY
 	,IdPedido INT
 	,IdCliente INT
-	,IdTipoComprobantePago NVARCHAR(6)
-	,IdTipoTransaccion NVARCHAR(6)
+	,IdTipoComprobantePago VARCHAR(6)
+	,IdTipoTransaccion VARCHAR(6)
 	,FechaEmision DATETIME
 	,FechaVencimiente DATETIME
-	,FormaPago NVARCHAR(50)
-	,Estado NVARCHAR(20)
-	,Monto MONEY
-	,CreadoPor NVARCHAR(15)
+	,FormaPago VARCHAR(50)
+	,Estado VARCHAR(20)
+	,Monto DECIMAL(10, 2)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
 	,CONSTRAINT FK_Pedido FOREIGN KEY (IdPedido) REFERENCES Pedido(IdPedido)
 	,CONSTRAINT FK_Cliente4 FOREIGN KEY (IdCliente) REFERENCES Cliente(IdCliente)
 	,CONSTRAINT FK_TipoComprobantePago FOREIGN KEY (IdTipoComprobantePago) REFERENCES TipoComprobante(IdTipoComprobante)
 	,CONSTRAINT FK_TipoTransaccion FOREIGN KEY (IdTipoTransaccion) REFERENCES TipoTransaccion(IdTipoTransaccion)
-	)
+	);
 
 CREATE TABLE Producto (
-	IdProducto INT identity PRIMARY KEY
-	,ImagenProducto IMAGE
-	,Nombre NVARCHAR(100)
-	,NombreCorto NVARCHAR(50)
-	,Descripcion NVARCHAR(50)
-	,Marca NVARCHAR(50)
-	,Presentacion NVARCHAR(50)
-	,UnidadMedida NVARCHAR(10)
-	,PrecioUnidadMedida MONEY
-	,UnidadCompra NVARCHAR(10)
-	,PrecioUnidadCompra MONEY
-	,Estado NVARCHAR(20)
-	,CreadoPor NVARCHAR(15)
+	IdProducto INT AUTO_INCREMENT PRIMARY KEY
+	,Nombre VARCHAR(100)
+	,NombreCorto VARCHAR(50)
+	,Descripcion VARCHAR(50)
+	,Marca VARCHAR(50)
+	,Presentacion VARCHAR(50)
+	,UnidadMedida VARCHAR(10)
+	,PrecioUnidadMedida DECIMAL(10, 2)
+	,UnidadCompra VARCHAR(10)
+	,PrecioUnidadCompra DECIMAL(10, 2)
+	,Estado VARCHAR(20)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
-	)
+	);
 
 CREATE TABLE PedidoProducto (
-	IdPedidoProducto INT identity PRIMARY KEY
+	IdPedidoProducto INT AUTO_INCREMENT PRIMARY KEY
 	,IdPedido INT
 	,IdProducto INT
 	,Cantidad DECIMAL(10, 2)
-	,UnidadMedida NVARCHAR(10)
-	,PrecioUnidadMedida MONEY
-	,UnidadCompra NVARCHAR(10)
-	,PrecioUnidadCompra MONEY
+	,UnidadMedida VARCHAR(10)
+	,PrecioUnidadMedida DECIMAL(10, 2)
+	,UnidadCompra VARCHAR(10)
+	,PrecioUnidadCompra DECIMAL(10, 2)
 	,CantidadEntregada DECIMAL(10, 2)
-	,CreadoPor NVARCHAR(15)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
 	,CONSTRAINT FK_Producto FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
-	)
+	);
 
 CREATE TABLE Almacen (
-	IdAlmacen INT identity PRIMARY KEY
+	IdAlmacen INT AUTO_INCREMENT PRIMARY KEY
 	,IdProducto INT
 	,Stock DECIMAL(10, 2)
 	,StockMinimo DECIMAL(10, 2)
-	,Estado NVARCHAR(20)
-	,CreadoPor NVARCHAR(15)
+	,Estado VARCHAR(20)
+	,CreadoPor VARCHAR(15)
 	,FechaCreacion DATETIME
-	,ModificadoPor NVARCHAR(15)
+	,ModificadoPor VARCHAR(15)
 	,FechaModificacion DATETIME
 	,CONSTRAINT FK_Producto2 FOREIGN KEY (IdProducto) REFERENCES Producto(IdProducto)
-	)
+	);
