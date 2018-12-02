@@ -1,0 +1,5 @@
+CREATE DATABASE CORPRODA;
+
+USE COPRODA;
+
+CREATE TABLE  Usuario (Idusuario identity primary  key,TipoUsuario nvarchar  
