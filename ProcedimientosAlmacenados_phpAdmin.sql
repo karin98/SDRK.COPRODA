@@ -1,4 +1,5 @@
 --Script para SP en phpAdmn
+
 --Crear un Nuevo Usuario
 CREATE
 PROCEDURE sp_UsuarioCrear(
@@ -35,3 +36,15 @@ VALUES(
     NULL
 );
 END
+
+
+--Leeer Usuarios
+CREATE
+PROCEDURE sp_UsuarioLeer()
+BEGIN
+SELECT
+    IdUsuario, Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad, Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, CreadoPor, FechaCreacion, ModificadoPor, FechaModificacion
+FROM
+    Usuario;
+END
+
