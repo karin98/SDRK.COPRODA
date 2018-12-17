@@ -1,0 +1,23 @@
+﻿@model SDRK.COPRODA.Modelo.Usuario
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+Hola Mundo xd
+<div class="ibox-content">
+
+   <input type="text" onchange="document.getElementById('pUsuario').value = pUsuario = this.value" id="pUsuario"/>
+    <input type="password" onchange="document.getElementById('pClaveAcceso').value = pClaveAcceso = this.value" id="pClaveAcceso" />
+   
+        <button  onclick="validar();">Ingresar</button>
+   </div>
+<script>
+    function validar() {
+        debugger;
+        var pUsuario = document.getElementById("pUsuario").value;
+        var pClaveAcceso = document.getElementById("pClaveAcceso").value;
+        var url = '@Url.Action("Login", "Login")?pUsuario=' + pUsuario + '&pClaveAcceso=' + pClaveAcceso;
+        window.location = window.location.host + url;
+    }
+</script>

@@ -16,7 +16,7 @@ namespace SDRK.COPRODA.Modelo
         public string DocumentoIdentidad { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
-        public string UsuarioCD { get; set; }
+        public string UsuarioCD { get; set; } //Usuario Coproda
         public string ClaveAcceso { get; set; }
         public string EstadoUsuario { get; set; }
         public string CreadoPor { get; set; }

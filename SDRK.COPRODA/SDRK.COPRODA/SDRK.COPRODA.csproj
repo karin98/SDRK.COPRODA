@@ -197,6 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -267,6 +268,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,6 +283,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SDRK.COPRODA.Logica\SDRK.COPRODA.Logica.csproj">
+      <Project>{399E9818-68AF-4E9F-AFB5-2ADF0B1AFA6F}</Project>
+      <Name>SDRK.COPRODA.Logica</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SDRK.COPRODA.Modelo\SDRK.COPRODA.Modelo.csproj">
       <Project>{8404743a-de2c-48b5-807b-6f41dc3766c9}</Project>
       <Name>SDRK.COPRODA.Modelo</Name>
