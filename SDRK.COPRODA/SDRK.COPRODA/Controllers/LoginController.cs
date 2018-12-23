@@ -21,17 +21,17 @@ namespace SDRK.COPRODA.Controllers
 
         public ActionResult Login(string pUsuario, string pClaveAcceso)
         {
-            //if (pUsuario == lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).UsuarioCD && pClaveAcceso == lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).ClaveAcceso)
-            //{
-            //    Session["Nombre"] = lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).Nombre;
+            if (pUsuario == lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).UsuarioCD && pClaveAcceso == lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).ClaveAcceso)
+            {
+                Session["Nombre"] = lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).Nombre;
 
-                return RedirectToAction("About","Home");
-            //}
-            //else
-            //{
+                return RedirectToAction("About", "Home");
+            }
+            else
+            {
 
-            //    return RedirectToAction("/Login/Index");
-            //}
+                return RedirectToAction("Index","Login");
+            }
         }
 
     }
