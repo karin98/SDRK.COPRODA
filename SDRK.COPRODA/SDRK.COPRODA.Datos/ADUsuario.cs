@@ -24,8 +24,10 @@ namespace SDRK.COPRODA.Datos
                 cmd.CommandText = "sp_UsuarioValidar";
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
-                cmd.Parameters.Add(new MySqlParameter("@pUsuario", MySqlDbType.VarChar)).Value = pUsuario;
-                cmd.Parameters.Add(new MySqlParameter("@pClaveAcceso", MySqlDbType.VarChar)).Value = pClaveAcceso;
+                //cmd.Parameters.Add(new MySqlParameter("pUsuario", MySqlDbType.VarChar)).Value = pUsuario;
+                //cmd.Parameters.Add(new MySqlParameter("pClaveAcceso", MySqlDbType.VarChar)).Value = pClaveAcceso;
+                cmd.Parameters.AddWithValue("pUsuario", pUsuario);
+                cmd.Parameters.AddWithValue("pClaveAcceso", pClaveAcceso);
 
                 cmd.ExecuteNonQuery();
                 cnn.Desconectar();
