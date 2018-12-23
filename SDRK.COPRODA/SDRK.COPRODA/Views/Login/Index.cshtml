@@ -3,13 +3,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-Hola Mundo xd
+<h2>Inicio de Sesión</h2>
 <div class="ibox-content">
 
     <input type="text" onchange="document.getElementById('pUsuario').value = pUsuario = this.value" id="pUsuario" />
     <input type="password" onchange="document.getElementById('pClaveAcceso').value = pClaveAcceso = this.value" id="pClaveAcceso" />
-
     <button type="button" onclick="validar();">Ingresar</button>
 
   
@@ -20,8 +18,6 @@ Hola Mundo xd
         var pUsuario = document.getElementById("pUsuario").value;
         var pClaveAcceso = document.getElementById("pClaveAcceso").value;
         var url = '@Url.Action("Login", "Login")?pUsuario=' + pUsuario + '&pClaveAcceso=' + pClaveAcceso;
-   
-            location.href = url;
-       
+        location.href = url;
     }
 </script>
