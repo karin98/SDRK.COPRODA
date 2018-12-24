@@ -68,5 +68,44 @@ namespace SDRK.COPRODA.Datos
 
             return usuario;
         }
+
+
+        public string UsuarioCrear(string TipoUsuario, string Nombre, string Apellido, string IdTipoDocumento, string DocumentoIdentidad,
+        string Telefono, string Celular, string Usuario, string ClaveAcceso, string EstadoUsuario, string CreadoPor, DateTime FechaCreacion)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_UsuarioCrear";
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+                //cmd.Parameters.Add(new MySqlParameter("pUsuario", MySqlDbType.VarChar)).Value = pUsuario;
+                //cmd.Parameters.Add(new MySqlParameter("pClaveAcceso", MySqlDbType.VarChar)).Value = pClaveAcceso;
+                cmd.Parameters.AddWithValue("TipoUsuario", TipoUsuario);
+                cmd.Parameters.AddWithValue("Nombre", Nombre);
+                cmd.Parameters.AddWithValue("Apellido", Apellido);
+                cmd.Parameters.AddWithValue("IdTipoDocumento", IdTipoDocumento);
+                cmd.Parameters.AddWithValue("DocumentoIdentidad", DocumentoIdentidad);
+                cmd.Parameters.AddWithValue("Telefono", Telefono);
+                cmd.Parameters.AddWithValue("Celular", Celular);
+                cmd.Parameters.AddWithValue("Usuario", Usuario);
+                cmd.Parameters.AddWithValue("ClaveAcceso", ClaveAcceso);
+                cmd.Parameters.AddWithValue("EstadoUsuario", EstadoUsuario);
+                cmd.Parameters.AddWithValue("CreadoPor", CreadoPor);
+                cmd.Parameters.AddWithValue("FechaCreacion", FechaCreacion);
+                cmd.ExecuteNonQuery();
+                cnn.Desconectar();
+
+                return "";
+             
+            }
+            catch (MySqlException ex)
+            {
+                return "Error al crear usuario";
+            }
+
+
+        }
     }
 }

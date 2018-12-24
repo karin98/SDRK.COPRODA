@@ -11,6 +11,7 @@ namespace SDRK.COPRODA.Controllers
         public ActionResult Index()
         {
             Session["TipoUsuario"] = "";
+            ViewBag.MensajeUsuarioCrear = "";
             return View();
         }
 

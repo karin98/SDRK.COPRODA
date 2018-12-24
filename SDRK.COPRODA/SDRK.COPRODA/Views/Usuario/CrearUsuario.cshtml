@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "CrearUsuario";
+}
+
+
+<h2>CrearUsuario</h2>
+
+<h5>
+    Tipo de Usuario<input type="text" onchange="document.getElementById('pTipoUsuario').value = this.value" id="pTipoUsuario" />
+</h5>
+<h5>
+    Nombre <input type="text" onchange="document.getElementById('pNombre').value = this.value" id="pNombre" />
+</h5>
+<h5>
+    Apellido   <input type="text" onchange="document.getElementById('pApellido').value =  this.value" id="pApellido" />
+</h5>
+<h5>
+    Id Tipo de Usuario  <input type="text" onchange="document.getElementById('pIdTipoDocumento').value = this.value" id="pIdTipoDocumento" />
+</h5>
+
+<h5>
+    Documento de Identidad <input type="text" onchange="document.getElementById('pDocumentoIdentidad').value =  this.value" id="pDocumentoIdentidad" />
+</h5>
+
+<h5>
+    Telefono <input type="text" onchange="document.getElementById('pTelefono').value = this.value" id="pTelefono" />
+</h5>
+
+<h5>
+    Celular <input type="text" onchange="document.getElementById('pCelular').value =  this.value" id="pCelular" />
+</h5>
+<h5>
+    Usuario   <input type="text" onchange="document.getElementById('pUsuario').value = this.value" id="pUsuario" />
+</h5>
+<h5>
+    Clave de Usuario  <input type="password" onchange="document.getElementById('pClaveAcceso').value = this.value" id="pClaveAcceso" />
+</h5>
+<h5>
+    Estado <input type="text" onchange="document.getElementById('pEstadoUsuario').value =  this.value" id="pEstadoUsuario" />
+</h5>
+<h5>
+    <input type="text" onchange="document.getElementById('pCreadoPor').value = this.value" id="pCreadoPor" />
+</h5>
+<input type="text" onchange="document.getElementById('pFechaCreacion').value =  this.value" id="pFechaCreacion" />
+
+<button type="button" onclick="RegistrarUsuario();">Guardar</button>
+
+<script>
+    function RegistrarUsuario() {
+        debugger;
+        var pTipoUsuario = document.getElementById("pTipoUsuario").value;
+        var pNombre = document.getElementById("pNombre").value;;
+        var pApellido = document.getElementById("pApellido").value;
+        var pIdTipoDocumento = document.getElementById("pIdTipoDocumento").value;;
+        var pDocumentoIdentidad = document.getElementById("pDocumentoIdentidad").value;
+        var pTelefono = document.getElementById("pTelefono").value;;
+        var pCelular = document.getElementById("pCelular").value;
+        var pUsuario = document.getElementById("pUsuario").value;
+        var pClaveAcceso = document.getElementById("pClaveAcceso").value;
+        var pEstadoUsuario = document.getElementById("pEstadoUsuario").value;
+        var pCreadoPor = document.getElementById("pCreadoPor").value;
+       
+        var url = '@Url.Action("CrearUsuario", "Usuario")?TipoUsuario=' + pTipoUsuario + '&Nombre=' + pNombre+'&Apellido='+pApellido
+       +'&IdTipoDocumento='+pIdTipoDocumento+'&DocumentoIdentidad='+pDocumentoIdentidad+'&Telefono='+pTelefono+'&Celular='+pCelular
+       + '&Usuario=' + pUsuario + '&ClaveAcceso' + pClaveAcceso + '&EstadoUsuario=' + pEstadoUsuario + '&CreadoPor=' + pCreadoPor;
+
+
+        location.href = url;
+    }
+</script>
+
