@@ -27,7 +27,7 @@ namespace SDRK.COPRODA.Datos
                 //cmd.Parameters.Add(new MySqlParameter("pUsuario", MySqlDbType.VarChar)).Value = pUsuario;
                 //cmd.Parameters.Add(new MySqlParameter("pClaveAcceso", MySqlDbType.VarChar)).Value = pClaveAcceso;
                 cmd.Parameters.AddWithValue("pUsuario", pUsuario);
-                cmd.Parameters.AddWithValue("pClaveAcceso", pClaveAcceso);
+                cmd.Parameters.AddWithValue("pClave", pClaveAcceso);
 
                 cmd.ExecuteNonQuery();
                 cnn.Desconectar();
@@ -45,7 +45,7 @@ namespace SDRK.COPRODA.Datos
                     usuario.TipoUsuario = Funciones.ToString(dt.Rows[n]["TipoUsuario"]);
                     usuario.Nombre = Funciones.ToString(dt.Rows[n]["Nombre"]);
                     usuario.Apellido = Funciones.ToString(dt.Rows[n]["Apellido"]);
-                    usuario.IdTipoDocumentoIdentidad = Funciones.ToString(dt.Rows[n]["IdTipoDocumentoIdentidad"]);
+                    usuario.IdTipoDocumentoIdentidad = Funciones.ToString(dt.Rows[n]["IdTipoDocumento"]);
                     usuario.DocumentoIdentidad = Funciones.ToString(dt.Rows[n]["DocumentoIdentidad"]);
                     usuario.Telefono = Funciones.ToString(dt.Rows[n]["Telefono"]);
                     usuario.Celular = Funciones.ToString(dt.Rows[n]["Celular"]);

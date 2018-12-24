@@ -46,7 +46,7 @@ CREATE
 PROCEDURE sp_UsuarioLeer()
 BEGIN
 SELECT
-    IdUsuario, Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad, Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, CreadoPor, FechaCreacion, ModificadoPor, FechaModificacion
+    IdUsuario,TipoUsuario,Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad, Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, CreadoPor, FechaCreacion, ModificadoPor, FechaModificacion
 FROM
     Usuario;
 END$
@@ -65,12 +65,12 @@ END$
 delimiter $
 create procedure sp_UsuarioValidar (in Pusuario varchar (15),in Pclave varchar (100))
 begin
-SELECT IdUsuario, Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad, Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, CreadoPor, FechaCreacion, ModificadoPor, FechaModificacion
+SELECT IdUsuario,TipoUsuario, Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad, Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, CreadoPor, FechaCreacion, ModificadoPor, FechaModificacion
 FROM
     Usuario  where Usuario like Pusuario and ClaveAcceso like Pclave limit 1;
     
     END $
-
+sp_UsuarioValidar
 call sp_UsuarioCrear ("Administrador","karina","Chuquizuta","DOCDNI","708576ddd7","","927107660","11","123","Activo","Adm",'2018-12-16 17:15' );
  
 
