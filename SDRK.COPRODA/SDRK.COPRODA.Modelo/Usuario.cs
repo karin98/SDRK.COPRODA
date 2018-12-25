@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,13 @@ namespace SDRK.COPRODA.Modelo
         public string DocumentoIdentidad { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
+        [Required]
+        [Display(Name = "Usuario")]
+        [MaxLength(20)]
         public string UsuarioCD { get; set; } //Usuario Coproda
+        [Required]
+        [Display(Name = "Contraseña")]
+        [MaxLength(50)]
         public string ClaveAcceso { get; set; }
         public string EstadoUsuario { get; set; }
         public string CreadoPor { get; set; }

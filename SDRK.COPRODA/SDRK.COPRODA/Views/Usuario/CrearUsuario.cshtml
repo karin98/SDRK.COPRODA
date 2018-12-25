@@ -1,9 +1,12 @@
 ﻿
-@{
-    ViewBag.Title = "CrearUsuario";
-}
-
-
+<h2>
+   @if (ViewBag.MensajeUsuarioCrear != "")
+   {
+    @Html.Raw(ViewBag.MensajeUsuarioCrear)
+       @Html.Raw("a")
+   }
+           
+</h2>
 <h2>CrearUsuario</h2>
 
 <h5>
@@ -16,7 +19,7 @@
     Apellido   <input type="text" onchange="document.getElementById('pApellido').value =  this.value" id="pApellido" />
 </h5>
 <h5>
-    Id Tipo de Usuario  <input type="text" onchange="document.getElementById('pIdTipoDocumento').value = this.value" id="pIdTipoDocumento" />
+    Id Tipo de Documento  <input type="text" onchange="document.getElementById('pIdTipoDocumento').value = this.value" id="pIdTipoDocumento" />
 </h5>
 
 <h5>
@@ -39,10 +42,7 @@
 <h5>
     Estado <input type="text" onchange="document.getElementById('pEstadoUsuario').value =  this.value" id="pEstadoUsuario" />
 </h5>
-<h5>
-    <input type="text" onchange="document.getElementById('pCreadoPor').value = this.value" id="pCreadoPor" />
-</h5>
-<input type="text" onchange="document.getElementById('pFechaCreacion').value =  this.value" id="pFechaCreacion" />
+
 
 <button type="button" onclick="RegistrarUsuario();">Guardar</button>
 
@@ -59,14 +59,12 @@
         var pUsuario = document.getElementById("pUsuario").value;
         var pClaveAcceso = document.getElementById("pClaveAcceso").value;
         var pEstadoUsuario = document.getElementById("pEstadoUsuario").value;
-        var pCreadoPor = document.getElementById("pCreadoPor").value;
-       
-        var url = '@Url.Action("CrearUsuario", "Usuario")?TipoUsuario=' + pTipoUsuario + '&Nombre=' + pNombre+'&Apellido='+pApellido
-       +'&IdTipoDocumento='+pIdTipoDocumento+'&DocumentoIdentidad='+pDocumentoIdentidad+'&Telefono='+pTelefono+'&Celular='+pCelular
-       + '&Usuario=' + pUsuario + '&ClaveAcceso' + pClaveAcceso + '&EstadoUsuario=' + pEstadoUsuario + '&CreadoPor=' + pCreadoPor;
+
+        var url = '@Url.Action("CrearUsuarioAction", "Usuario")?TipoUsuario=' + pTipoUsuario + '&Nombre=' + pNombre + '&Apellido=' + pApellido
+       + '&IdTipoDocumento=' + pIdTipoDocumento + '&DocumentoIdentidad=' + pDocumentoIdentidad + '&Telefono=' + pTelefono + '&Celular=' + pCelular
+       + '&Usuario=' + pUsuario + '&ClaveAcceso' + pClaveAcceso + '&EstadoUsuario=' + pEstadoUsuario;
 
 
         location.href = url;
     }
 </script>
-

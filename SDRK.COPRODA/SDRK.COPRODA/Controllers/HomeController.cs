@@ -10,8 +10,21 @@ namespace SDRK.COPRODA.Controllers
     {
         public ActionResult Index()
         {
+            //Datos del Usuario
+            Session["IdUsuario"] = "";
             Session["TipoUsuario"] = "";
-            ViewBag.MensajeUsuarioCrear = "";
+            Session["NombreUsuario"] = "";
+            Session["ApellidoUsuario"] = "";
+            Session["IdTipoDocumento"] = "";
+            Session["Telefono"] = "";
+            Session["Celular"] = "";
+            Session["Usuario"] = "";
+            Session["EstadoUsuario"] = "";
+
+            //Mensajes
+            Session["MensajeLogin"] = "";
+            Session["MensajeUsuarioCrear"] = "";
+
             return View();
         }
 

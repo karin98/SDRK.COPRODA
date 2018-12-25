@@ -1,23 +1,65 @@
 ﻿@model SDRK.COPRODA.Modelo.Usuario
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Iniciar Sesión";
 }
 
 <h2>Inicio de Sesión</h2>
-<div class="ibox-content">
+@if (Session["MensajeLogin"].ToString() != "")
+{
+    @Session["MensajeLogin"].ToString();
+}
+    @*<div class="ibox-content">
+            <h4>
+                Usuario: <br /><input type="text" onchange="document.getElementById('pUsuario').value = pUsuario = this.value" id="pUsuario" />
+                <br />
+                Contraseña: <br /><input type="password" onchange="document.getElementById('pClaveAcceso').value = pClaveAcceso = this.value" id="pClaveAcceso" />
+            </h4>
+            <button type="button" onclick="validar();">Ingresar</button>
+        </div>*@
 
-    <input type="text" onchange="document.getElementById('pUsuario').value = pUsuario = this.value" id="pUsuario" />
-    <input type="password" onchange="document.getElementById('pClaveAcceso').value = pClaveAcceso = this.value" id="pClaveAcceso" />
-    <button type="button" onclick="validar();">Ingresar</button>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                <h4>Use una cuenta local para iniciar sesión.</h4>
+                <hr />
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UsuarioCD, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UsuarioCD, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UsuarioCD, "", new { @class = "text-danger", @id = "pUsuario" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ClaveAcceso, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.ClaveAcceso, new { @class = "form-control", @id = "pClaveAcceso" })
+                        @Html.ValidationMessageFor(m => m.ClaveAcceso, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Iniciar" class="btn btn-default" onclick="validar();" />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script>
+        function iniciarSesion(pUsuario, pClaveAcceso) {
+            debugger;
+            var url = '@Url.Action("Login", "Login")?pUsuario=' + pUsuario + '&pClaveAcceso=' + pClaveAcceso;
+            location.href = url;
+        }
 
-  
-</div>
-<script>
-    function validar() {
-        debugger;
-        var pUsuario = document.getElementById("pUsuario").value;
-        var pClaveAcceso = document.getElementById("pClaveAcceso").value;
-        var url = '@Url.Action("Login", "Login")?pUsuario=' + pUsuario + '&pClaveAcceso=' + pClaveAcceso;
-        location.href = url;
-    }
-</script>
+        function validar() {
+            var pUsuario = document.getElementById("pUsuario").value;
+            var pClaveAcceso = document.getElementById("pClaveAcceso").value;
+            if (pUsuario != "" && pClaveAcceso != "") {
+                iniciarSesion(pUsuario, pClaveAcceso)
+            }
+            else {
+                alert('Complete los Campos','a');
+               
+            }
+        }
+    </script>

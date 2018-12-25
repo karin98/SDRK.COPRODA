@@ -17,18 +17,16 @@ namespace SDRK.COPRODA.Controllers
         }
 
 
-        ////public ActionResult CrearUsuario()
-        ////{
-           
-        ////    return View();
+        public ActionResult CrearUsuario()
+        {
+            ViewBag.MensajeUsuarioCrear = "pop";
+            return View();
+        }
 
-        ////}
-        ////[HttpPost,ValidateAntiForgeryToken]
-        public ActionResult CrearUsuario(string TipoUsuario, string Nombre, string Apellido, string IdTipoDocumento, string DocumentoIdentidad,
-       string Telefono, string Celular, string Usuario, string ClaveAcceso, string EstadoUsuario, string CreadoPor)
+        public ActionResult CrearUsuarioAction(string TipoUsuario, string Nombre, string Apellido, string IdTipoDocumento, string DocumentoIdentidad, string Telefono, string Celular, string Usuario, string ClaveAcceso, string EstadoUsuario)
         {
             string Respuesta = "";
-            Respuesta = lnUsuario.UsuarioCrear(TipoUsuario, Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad,Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, CreadoPor, DateTime.Now);
+            Respuesta = lnUsuario.UsuarioCrear(TipoUsuario, Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad, Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, Session["Usuario"].ToString(), DateTime.Now);
 
             if (Respuesta == "")
                 return RedirectToAction("Index", "Usuario");
@@ -38,8 +36,5 @@ namespace SDRK.COPRODA.Controllers
                 return RedirectToAction("CrearUsuario", "Usuario");
             }
         }
-
-
-
     }
 }

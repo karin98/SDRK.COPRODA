@@ -1,4 +1,5 @@
 ﻿using SDRK.COPRODA.Logica;
+using SDRK.COPRODA.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,24 +18,21 @@ namespace SDRK.COPRODA.Controllers
             return View();
         }
 
-
-
         public ActionResult Login(string pUsuario, string pClaveAcceso)
         {
-            if (pUsuario == lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).UsuarioCD && pClaveAcceso == lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).ClaveAcceso)
+            Usuario usuario = lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso);
+            Session["MensajeLogin"] = "";
+            if (pUsuario == usuario.UsuarioCD && pClaveAcceso == usuario.ClaveAcceso)
             {
-                Session["Nombre"] = lnUsuario.Usuario_Validar(pUsuario, pClaveAcceso).Nombre;
-
-                return RedirectToAction("About", "Home");
+                Session["NombreUsuario"] = usuario.Nombre;
+                Session["Usuario"] = usuario.UsuarioCD;
+                return RedirectToAction("Index", "Inicio");
             }
             else
             {
-
+                Session["MensajeLogin"] = "Credenciales Incorrectas";
                 return RedirectToAction("Index", "Login");
             }
         }
-
-
-
     }
 }
