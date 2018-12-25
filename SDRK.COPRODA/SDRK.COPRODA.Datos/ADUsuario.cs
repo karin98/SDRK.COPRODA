@@ -24,20 +24,16 @@ namespace SDRK.COPRODA.Datos
                 cmd.CommandText = "sp_UsuarioValidar";
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
-                //cmd.Parameters.Add(new MySqlParameter("pUsuario", MySqlDbType.VarChar)).Value = pUsuario;
-                //cmd.Parameters.Add(new MySqlParameter("pClaveAcceso", MySqlDbType.VarChar)).Value = pClaveAcceso;
                 cmd.Parameters.AddWithValue("pUsuario", pUsuario);
                 cmd.Parameters.AddWithValue("pClave", pClaveAcceso);
 
                 cmd.ExecuteNonQuery();
                 cnn.Desconectar();
 
-
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
 
                 da.Fill(dt);
-
 
                 for (int n = 0; n < dt.Rows.Count; n++)
                 {
@@ -57,21 +53,19 @@ namespace SDRK.COPRODA.Datos
                     usuario.ModificadoPor = Funciones.ToString(dt.Rows[n]["ModificadoPor"]);
                     usuario.FechaModificacion = Funciones.ToDateTime(dt.Rows[n]["FechaModificacion"]);
 
+                    cnn.Desconectar();
                 }
             }
-            catch (MySqlException ex) { }
-            try
+            catch (MySqlException ex)
             {
                 cnn.Desconectar();
             }
-            catch (Exception ex) { }
 
             return usuario;
         }
 
 
-        public string UsuarioCrear(string TipoUsuario, string Nombre, string Apellido, string IdTipoDocumento, string DocumentoIdentidad,
-        string Telefono, string Celular, string Usuario, string ClaveAcceso, string EstadoUsuario, string CreadoPor, DateTime FechaCreacion)
+        public string UsuarioCrear(string TipoUsuario, string Nombre, string Apellido, string IdTipoDocumento, string DocumentoIdentidad, string Telefono, string Celular, string Usuario, string ClaveAcceso, string EstadoUsuario, string CreadoPor, DateTime FechaCreacion)
         {
             try
             {
@@ -80,8 +74,7 @@ namespace SDRK.COPRODA.Datos
                 cmd.CommandText = "sp_UsuarioCrear";
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
-                //cmd.Parameters.Add(new MySqlParameter("pUsuario", MySqlDbType.VarChar)).Value = pUsuario;
-                //cmd.Parameters.Add(new MySqlParameter("pClaveAcceso", MySqlDbType.VarChar)).Value = pClaveAcceso;
+
                 cmd.Parameters.AddWithValue("TipoUsuario", TipoUsuario);
                 cmd.Parameters.AddWithValue("Nombre", Nombre);
                 cmd.Parameters.AddWithValue("Apellido", Apellido);
@@ -98,14 +91,39 @@ namespace SDRK.COPRODA.Datos
                 cnn.Desconectar();
 
                 return "";
-             
+
             }
             catch (MySqlException ex)
             {
-                return "Error al crear usuario";
+                cnn.Desconectar();
+                return "Error al crear el usuario";
             }
-
-
         }
+
+
+        public string UsuarioEliminar(string Usuario)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_UsuarioEliminar"; //Crear Procedimiento
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+
+                cmd.Parameters.AddWithValue("Usuario", Usuario);
+                cmd.ExecuteNonQuery();
+                cnn.Desconectar();
+
+                return "";
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+                return "Error al eliminar el usuario";
+            }
+        }
+
+        //Listar Usuarios
     }
 }

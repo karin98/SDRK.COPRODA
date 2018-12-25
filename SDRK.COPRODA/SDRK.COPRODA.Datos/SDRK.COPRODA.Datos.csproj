@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ADConexion.cs" />
+    <Compile Include="ADPedido.cs" />
     <Compile Include="ADUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
