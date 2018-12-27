@@ -29,7 +29,7 @@ namespace SDRK.COPRODA.Controllers
             Respuesta = lnUsuario.UsuarioCrear(TipoUsuario, Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad, Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, Session["Usuario"].ToString(), DateTime.Now);
 
             if (Respuesta == "")
-                return RedirectToAction("Index", "Usuario");
+                return RedirectToAction("Index", "Login");
             else
             {
                 ViewBag.MensajeUsuarioCrear = Respuesta;

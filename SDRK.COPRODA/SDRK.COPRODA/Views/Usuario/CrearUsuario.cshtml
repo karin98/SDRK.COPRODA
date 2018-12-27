@@ -1,10 +1,10 @@
 ﻿
 <h2>
-   @if (ViewBag.MensajeUsuarioCrear != "")
+   @*@if (ViewBag.MensajeUsuarioCrear != "")
    {
     @Html.Raw(ViewBag.MensajeUsuarioCrear)
        @Html.Raw("a")
-   }
+   }*@
            
 </h2>
 <h2>CrearUsuario</h2>
@@ -62,7 +62,7 @@
 
         var url = '@Url.Action("CrearUsuarioAction", "Usuario")?TipoUsuario=' + pTipoUsuario + '&Nombre=' + pNombre + '&Apellido=' + pApellido
        + '&IdTipoDocumento=' + pIdTipoDocumento + '&DocumentoIdentidad=' + pDocumentoIdentidad + '&Telefono=' + pTelefono + '&Celular=' + pCelular
-       + '&Usuario=' + pUsuario + '&ClaveAcceso' + pClaveAcceso + '&EstadoUsuario=' + pEstadoUsuario;
+       + '&Usuario=' + pUsuario + '&ClaveAcceso=' + pClaveAcceso + '&EstadoUsuario=' + pEstadoUsuario;
 
 
         location.href = url;

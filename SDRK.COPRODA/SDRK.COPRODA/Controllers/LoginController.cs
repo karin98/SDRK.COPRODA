@@ -25,6 +25,8 @@ namespace SDRK.COPRODA.Controllers
             if (pUsuario == usuario.UsuarioCD && pClaveAcceso == usuario.ClaveAcceso)
             {
                 Session["NombreUsuario"] = usuario.Nombre;
+                Session["ApellidoUsuario"] = usuario.Apellido;
+                Session["TipoUsuario"] = usuario.TipoUsuario;
                 Session["Usuario"] = usuario.UsuarioCD;
                 return RedirectToAction("Index", "Inicio");
             }
