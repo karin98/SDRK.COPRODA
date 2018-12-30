@@ -22,25 +22,29 @@
             <section id="loginForm">
                 <h4>Use una cuenta local para iniciar sesión.</h4>
                 <hr />
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UsuarioCD, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UsuarioCD, new { @class = "form-control", @id = "pUsuario" })
-                        @Html.ValidationMessageFor(m => m.UsuarioCD, "", new { @class = "text-danger"})
+                @using (Html.BeginForm("Login", "Login", null, FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.UsuarioCD, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.UsuarioCD, new { @class = "form-control", @id = "UsuarioCD" })
+                            @Html.ValidationMessageFor(model => model.UsuarioCD, "Ingrese su Usuario", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ClaveAcceso, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.ClaveAcceso, new { @class = "form-control", @id = "pClaveAcceso" })
-                        @Html.ValidationMessageFor(m => m.ClaveAcceso, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ClaveAcceso, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.ClaveAcceso, new { @class = "form-control", @id = "ClaveAcceso" })
+                            @Html.ValidationMessageFor(model => model.ClaveAcceso, "Ingrese su Contraseña.", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Iniciar" class="btn btn-default" onclick="validar();" />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Iniciar" class="btn btn-default" />
+                        </div>
                     </div>
-                </div>
+                }
             </section>
         </div>
     </div>
@@ -58,8 +62,8 @@
                 iniciarSesion(pUsuario, pClaveAcceso)
             }
             else {
-                alert('Complete los Campos','a');
-               
+                alert('Complete los Campos', 'a');
+
             }
         }
     </script>

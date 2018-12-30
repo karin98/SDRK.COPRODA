@@ -17,14 +17,17 @@ namespace SDRK.COPRODA.Modelo
         public string DocumentoIdentidad { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
-        [Required]
+
         [Display(Name = "Usuario")]
-        [MaxLength(20)]
+        [Required(ErrorMessage = "El Campo es obligatorio.")]
+        [StringLength(20, ErrorMessage = "Name can be no larger than 30 characters")]
         public string UsuarioCD { get; set; } //Usuario Coproda
-        [Required]
+
         [Display(Name = "Contraseña")]
-        [MaxLength(50)]
+        [Required(ErrorMessage = "El Campo es obligatorio.")]
+        [StringLength(50, ErrorMessage = "Name can be no larger than 30 characters")]
         public string ClaveAcceso { get; set; }
+
         public string EstadoUsuario { get; set; }
         public string CreadoPor { get; set; }
         public DateTime FechaCreacion { get; set; }
