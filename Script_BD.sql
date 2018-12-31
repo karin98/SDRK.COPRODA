@@ -93,7 +93,7 @@ CREATE TABLE Proovedor (
 
 CREATE TABLE Pedido (
 	IdPedido INT AUTO_INCREMENT PRIMARY KEY
-	,NumeroPedido INT
+	,NumeroPedido INT AUTO_INCREMENT
 	,IdUsuario INT
 	,IdCliente INT
 	,DireccionFacturacion VARCHAR(50)
