@@ -20,7 +20,6 @@ namespace SDRK.COPRODA.Controllers
             Session["Celular"] = "";
             Session["Usuario"] = "";
             Session["EstadoUsuario"] = "";
-            Session["Login"] = false;
             //Mensajes
             Session["MensajeLogin"] = "";
             Session["MensajeUsuarioCrear"] = "";

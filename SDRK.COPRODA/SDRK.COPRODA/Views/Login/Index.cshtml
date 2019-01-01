@@ -8,15 +8,6 @@
 {
     @Session["MensajeLogin"].ToString();
 }
-    @*<div class="ibox-content">
-            <h4>
-                Usuario: <br /><input type="text" onchange="document.getElementById('pUsuario').value = pUsuario = this.value" id="pUsuario" />
-                <br />
-                Contraseña: <br /><input type="password" onchange="document.getElementById('pClaveAcceso').value = pClaveAcceso = this.value" id="pClaveAcceso" />
-            </h4>
-            <button type="button" onclick="validar();">Ingresar</button>
-        </div>*@
-
     <div class="row">
         <div class="col-md-8">
             <section id="loginForm">
@@ -48,22 +39,3 @@
             </section>
         </div>
     </div>
-    <script>
-        function iniciarSesion(pUsuario, pClaveAcceso) {
-            debugger;
-            var url = '@Url.Action("Login", "Login")?pUsuario=' + pUsuario + '&pClaveAcceso=' + pClaveAcceso;
-            location.href = url;
-        }
-
-        function validar() {
-            var pUsuario = document.getElementById("pUsuario").value;
-            var pClaveAcceso = document.getElementById("pClaveAcceso").value;
-            if (pUsuario != "" && pClaveAcceso != "") {
-                iniciarSesion(pUsuario, pClaveAcceso)
-            }
-            else {
-                alert('Complete los Campos', 'a');
-
-            }
-        }
-    </script>

@@ -1,4 +1,5 @@
 ﻿using SDRK.COPRODA.Logica;
+using SDRK.COPRODA.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,21 @@ namespace SDRK.COPRODA.Controllers
             return View();
         }
 
-
+        [HttpGet]
         public ActionResult CrearUsuario()
         {
-            ViewBag.MensajeUsuarioCrear = "pop";
+            ViewBag.MensajeUsuarioCrear = "";
             return View();
         }
 
-        public ActionResult CrearUsuarioAction(string TipoUsuario, string Nombre, string Apellido, string IdTipoDocumento, string DocumentoIdentidad, string Telefono, string Celular, string Usuario, string ClaveAcceso, string EstadoUsuario)
+        [HttpPost,ValidateAntiForgeryToken]
+        public ActionResult CrearUsuario(Usuario usuario)
         {
             string Respuesta = "";
-            Respuesta = lnUsuario.UsuarioCrear(TipoUsuario, Nombre, Apellido, IdTipoDocumento, DocumentoIdentidad, Telefono, Celular, Usuario, ClaveAcceso, EstadoUsuario, Session["Usuario"].ToString(), DateTime.Now);
+            usuario.CreadoPor = Session["Usuario"].ToString();
+            usuario.FechaCreacion = DateTime.Now;
+
+            Respuesta = lnUsuario.UsuarioCrear(usuario);
 
             if (Respuesta == "")
                 return RedirectToAction("Index", "Login");

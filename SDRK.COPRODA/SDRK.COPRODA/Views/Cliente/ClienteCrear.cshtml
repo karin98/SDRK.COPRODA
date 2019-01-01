@@ -1,0 +1,104 @@
+﻿@model SDRK.COPRODA.Modelo.Cliente
+@{
+    ViewBag.Title = "Crear Cliente";
+}
+
+<h2>Crear Cliente</h2>
+<div class="row">
+    <div class="col-md-8">
+        @*@if (ViewBag.MensajeUsuarioCrear != "")
+            {
+            @Html.Raw(ViewBag.MensajeUsuarioCrear)
+            @Html.Raw("a")
+        }*@
+        <section id="CrearClienteForm">
+            <hr />
+            @using (Html.BeginForm("ClienteCrear", "Cliente", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdTipoCliente, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.IdTipoCliente, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdTipoCliente, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nombre, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Nombre, "Escriba el nombre del Cliente", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Apellido, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Apellido, "Escriba el apellido del Cliente", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdTipoDocumento, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.IdTipoDocumento, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdTipoDocumento, "Seleccione un tipo de documento", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DocumentoIdentidad, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.DocumentoIdentidad, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DocumentoIdentidad, "Escriba el Documento de identidad", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RazonSocial, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.RazonSocial, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.RazonSocial, "Escriba la Razon Sacial del Cliente", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RUC, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.RUC, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.RUC, "Escriba el RUC del cliente", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Telefono, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Telefono, "Escriba el telefono del Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Celular, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Celular, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Celular, "Escriba el celular del Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email, "Escriba el Email del cliente", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Estado, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Estado, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Estado, "Seleccione el estado del cliente", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Crear" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>

@@ -65,7 +65,7 @@ namespace SDRK.COPRODA.Datos
         }
 
 
-        public string UsuarioCrear(string TipoUsuario, string Nombre, string Apellido, string IdTipoDocumento, string DocumentoIdentidad, string Telefono, string Celular, string Usuario, string ClaveAcceso, string EstadoUsuario, string CreadoPor, DateTime FechaCreacion)
+        public string UsuarioCrear(Usuario usuario)
         {
             try
             {
@@ -75,18 +75,18 @@ namespace SDRK.COPRODA.Datos
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
 
-                cmd.Parameters.AddWithValue("TipoUsuario", TipoUsuario);
-                cmd.Parameters.AddWithValue("Nombre", Nombre);
-                cmd.Parameters.AddWithValue("Apellido", Apellido);
-                cmd.Parameters.AddWithValue("IdTipoDocumento", IdTipoDocumento);
-                cmd.Parameters.AddWithValue("DocumentoIdentidad", DocumentoIdentidad);
-                cmd.Parameters.AddWithValue("Telefono", Telefono);
-                cmd.Parameters.AddWithValue("Celular", Celular);
-                cmd.Parameters.AddWithValue("Usuario", Usuario);
-                cmd.Parameters.AddWithValue("ClaveAcceso", ClaveAcceso);
-                cmd.Parameters.AddWithValue("EstadoUsuario", EstadoUsuario);
-                cmd.Parameters.AddWithValue("CreadoPor", CreadoPor);
-                cmd.Parameters.AddWithValue("FechaCreacion", FechaCreacion);
+                cmd.Parameters.AddWithValue("TipoUsuario", usuario.TipoUsuario);
+                cmd.Parameters.AddWithValue("Nombre", usuario.Nombre);
+                cmd.Parameters.AddWithValue("Apellido", usuario.Apellido);
+                cmd.Parameters.AddWithValue("IdTipoDocumento", usuario.IdTipoDocumentoIdentidad);
+                cmd.Parameters.AddWithValue("DocumentoIdentidad", usuario.DocumentoIdentidad);
+                cmd.Parameters.AddWithValue("Telefono", usuario.Telefono);
+                cmd.Parameters.AddWithValue("Celular", usuario.Celular);
+                cmd.Parameters.AddWithValue("Usuario", usuario.UsuarioCD);
+                cmd.Parameters.AddWithValue("ClaveAcceso", usuario.ClaveAcceso);
+                cmd.Parameters.AddWithValue("EstadoUsuario", usuario.EstadoUsuario);
+                cmd.Parameters.AddWithValue("CreadoPor", usuario.CreadoPor);
+                cmd.Parameters.AddWithValue("FechaCreacion", usuario.FechaCreacion);
                 cmd.ExecuteNonQuery();
                 cnn.Desconectar();
 

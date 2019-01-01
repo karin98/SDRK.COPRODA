@@ -24,7 +24,7 @@ namespace SDRK.COPRODA.Modelo
         public string UsuarioCD { get; set; } //Usuario Coproda
 
         [Display(Name = "Contraseña")]
-        [Required(ErrorMessage = "El Campo es obligatorio.")]
+        [Required]
         [StringLength(50, ErrorMessage = "Name can be no larger than 30 characters")]
         public string ClaveAcceso { get; set; }
 

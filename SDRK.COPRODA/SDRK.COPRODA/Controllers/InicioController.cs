@@ -11,7 +11,7 @@ namespace SDRK.COPRODA.Controllers
         // GET: Inicio
         public ActionResult Index()
         {
-            if (Session["Usuario"].ToString() != "")
+            if (Convert.ToBoolean(Session["Login"]))
             {
                 return View();
             }

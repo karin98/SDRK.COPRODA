@@ -1,70 +1,97 @@
-﻿
-<h2>
-   @*@if (ViewBag.MensajeUsuarioCrear != "")
-   {
-    @Html.Raw(ViewBag.MensajeUsuarioCrear)
-       @Html.Raw("a")
-   }*@
-           
-</h2>
-<h2>CrearUsuario</h2>
+﻿@model SDRK.COPRODA.Modelo.Usuario
+@{
+    ViewBag.Title = "Crear Usuario";
+}
 
-<h5>
-    Tipo de Usuario<input type="text" onchange="document.getElementById('pTipoUsuario').value = this.value" id="pTipoUsuario" />
-</h5>
-<h5>
-    Nombre <input type="text" onchange="document.getElementById('pNombre').value = this.value" id="pNombre" />
-</h5>
-<h5>
-    Apellido   <input type="text" onchange="document.getElementById('pApellido').value =  this.value" id="pApellido" />
-</h5>
-<h5>
-    Id Tipo de Documento  <input type="text" onchange="document.getElementById('pIdTipoDocumento').value = this.value" id="pIdTipoDocumento" />
-</h5>
-
-<h5>
-    Documento de Identidad <input type="text" onchange="document.getElementById('pDocumentoIdentidad').value =  this.value" id="pDocumentoIdentidad" />
-</h5>
-
-<h5>
-    Telefono <input type="text" onchange="document.getElementById('pTelefono').value = this.value" id="pTelefono" />
-</h5>
-
-<h5>
-    Celular <input type="text" onchange="document.getElementById('pCelular').value =  this.value" id="pCelular" />
-</h5>
-<h5>
-    Usuario   <input type="text" onchange="document.getElementById('pUsuario').value = this.value" id="pUsuario" />
-</h5>
-<h5>
-    Clave de Usuario  <input type="password" onchange="document.getElementById('pClaveAcceso').value = this.value" id="pClaveAcceso" />
-</h5>
-<h5>
-    Estado <input type="text" onchange="document.getElementById('pEstadoUsuario').value =  this.value" id="pEstadoUsuario" />
-</h5>
-
-
-<button type="button" onclick="RegistrarUsuario();">Guardar</button>
-
-<script>
-    function RegistrarUsuario() {
-        debugger;
-        var pTipoUsuario = document.getElementById("pTipoUsuario").value;
-        var pNombre = document.getElementById("pNombre").value;;
-        var pApellido = document.getElementById("pApellido").value;
-        var pIdTipoDocumento = document.getElementById("pIdTipoDocumento").value;;
-        var pDocumentoIdentidad = document.getElementById("pDocumentoIdentidad").value;
-        var pTelefono = document.getElementById("pTelefono").value;;
-        var pCelular = document.getElementById("pCelular").value;
-        var pUsuario = document.getElementById("pUsuario").value;
-        var pClaveAcceso = document.getElementById("pClaveAcceso").value;
-        var pEstadoUsuario = document.getElementById("pEstadoUsuario").value;
-
-        var url = '@Url.Action("CrearUsuarioAction", "Usuario")?TipoUsuario=' + pTipoUsuario + '&Nombre=' + pNombre + '&Apellido=' + pApellido
-       + '&IdTipoDocumento=' + pIdTipoDocumento + '&DocumentoIdentidad=' + pDocumentoIdentidad + '&Telefono=' + pTelefono + '&Celular=' + pCelular
-       + '&Usuario=' + pUsuario + '&ClaveAcceso=' + pClaveAcceso + '&EstadoUsuario=' + pEstadoUsuario;
-
-
-        location.href = url;
-    }
-</script>
+<h2>Crear Usuario</h2>
+<div class="row">
+    <div class="col-md-8">
+        @if (ViewBag.MensajeUsuarioCrear != "")
+            {
+            @Html.Raw(ViewBag.MensajeUsuarioCrear)
+            @Html.Raw("a")
+        }
+        <section id="CrearUsuarioForm">
+            <hr />
+            @using (Html.BeginForm("CrearUsuario", "Usuario", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TipoUsuario, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.TipoUsuario, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.TipoUsuario, "Seleccione un Tipo de Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nombre, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Nombre, "Escriba el nombre del Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Apellido, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Apellido, "Escriba el apellido del Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdTipoDocumentoIdentidad, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.IdTipoDocumentoIdentidad, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.IdTipoDocumentoIdentidad, "Seleccione un tipo de documento", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DocumentoIdentidad, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.DocumentoIdentidad, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.DocumentoIdentidad, "Escriba el Documento de identidad del Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Telefono, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Telefono, "Escriba el telefono del Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Celular, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Celular, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Celular, "Escriba el celular del Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UsuarioCD, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.UsuarioCD, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.UsuarioCD, "Escriba la ID del Usuario nuevo", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClaveAcceso, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.ClaveAcceso, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.ClaveAcceso, "Escriba la clave de acceso", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstadoUsuario, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.EstadoUsuario, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EstadoUsuario, "Seleccione el estado del Usuario", new { @class = "text-danger" })
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Crear" class="btn btn-default" />
+                        </div>
+                    </div>
+            }
+        </section>
+    </div>
+</div>
