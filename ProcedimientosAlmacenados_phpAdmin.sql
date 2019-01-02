@@ -319,11 +319,11 @@ go
     /* Cliente PROCEDIMIENTO*/
 
 delimiter $
-CREATE
-PROCEDURE sp_ClienteLeer()
+CREATE PROCEDURE sp_ClienteLeer()
 BEGIN
 SELECT
-	IdTipoCliente
+	IdCliente
+	,IdTipoCliente
 	,Nombre
 	,Apellido
 	,IdTipoDocumento
@@ -336,11 +336,39 @@ SELECT
 	,EstadoCliente 
 	,CreadoPor 
 	,FechaCreacion
+	,ModificadoPor 
+	,FechaModificacion
 FROM
     Cliente;
 END$
 
-	create proc ClienteEditar(
+delimiter $
+CREATE PROCEDURE  ClienteEditar(
+     in pIdTipoCliente VARCHAR(6)
+	,in pNombre VARCHAR(50)
+	,in pApellido VARCHAR(50)
+	,in pIdTipoDocumento VARCHAR(6)
+	,in pDocumentoIdentidad VARCHAR(20)
+	,in pRazonSocial VARCHAR(50)
+	,in pRUC VARCHAR(10)
+	,in pTelefono VARCHAR(10)
+	,in pCelular VARCHAR(10)
+	,in pEmail VARCHAR(100)
+	,in pEstadoCliente VARCHAR(20)
+	,in pModificadoPor VARCHAR(15)
+	,in pFechaModificacion DATETIME)
+as
+update Cliente  set  IdTipoCliente=pIdTipoCliente, Nombre=pNombre,Apellido=pApellido,IdTipoDocumento=pIdTipoDocumento,
+DocumentoIdentidad=pDocumentoIdentidad, RazonSocial=pRazonSocial,RUC=pRUC,Telefono=pTelefono,Celular=pCelular,Email=pEmail,
+EstadoCliente=pEstadoCliente,ModificadoPor=pModificadoPor,FechaModificacion=pFechaModificacion
+where IdCliente=pIdCliente;
+END$
+
+
+
+
+Delimiter $
+create procedure sp_ClienteCrear (
      in pIdTipoCliente VARCHAR(6)
 	,in pNombre VARCHAR(50)
 	,in pApellido VARCHAR(50)
@@ -354,31 +382,6 @@ END$
 	,in pEstadoCliente VARCHAR(20)
 	,in pCreadoPor VARCHAR(15)
 	,in pFechaCreacion DATETIME)
-as
-update Cliente  set  IdTipoCliente=pIdTipoCliente, Nombre=pNombre,Apellido=pApellido,IdTipoDocumento=pIdTipoDocumento,
-DocumentoIdentidad=pDocumentoIdentidad, RazonSocial=pRazonSocial,RUC=pRUC,Telefono=pTelefono,Celular=pCelular,Email=pEmail,
-EstadoCliente=pEstadoCliente,CreadoPor=pCreadoPor,FechaCreacion=pFechaCreacion
-where IdPedido=pIdPedido
-go
-
-
-
-
-Delimiter $
-create procedure sp_ClienteCrear (
-     in IdTipoCliente VARCHAR(6)
-	,in Nombre VARCHAR(50)
-	,in Apellido VARCHAR(50)
-	,in IdTipoDocumento VARCHAR(6)
-	,in DocumentoIdentidad VARCHAR(20)
-	,in RazonSocial VARCHAR(50)
-	,in RUC VARCHAR(10)
-	,in Telefono VARCHAR(10)
-	,in Celular VARCHAR(10)
-	,in Email VARCHAR(100)
-	,in EstadoCliente VARCHAR(20)
-	,in CreadoPor VARCHAR(15)
-	,in FechaCreacion DATETIME)
     begin 
     insert into cliente
     values
@@ -507,8 +510,8 @@ select * from direccion
 
 
 delimiter $
-CREATE
-PROCEDURE sp_PedidoProductoLeer()
+CREATE PROCEDURE sp_PedidoProductoLeer(
+IN  pIdPedido INT)
 BEGIN
 SELECT
 	IdPedidoProducto 
@@ -525,12 +528,33 @@ SELECT
 	,ModificadoPor 
 	,FechaModificacion
 FROM
-    PedidoProducto;
+    PedidoProducto where IdPedido = pIdPedido;
+END$
+
+delimiter $
+create PROCEDURE sp_PedidoProductoEditar(
+    IN  pIdPedidoProducto INT
+	,IN  pIdPedido INT
+	,IN  pIdProducto INT
+	,IN  pCantidad DECIMAL(10, 2)
+	,IN  pUnidadMedida VARCHAR(10)
+	,IN  pPrecioUnidadMedida DECIMAL(10, 2)
+	,IN  pUnidadCompra VARCHAR(10)
+	,IN  pPrecioUnidadCompra DECIMAL(10, 2)
+	,IN  pCantidadEntregada DECIMAL(10, 2)
+	,IN  pModificadoPor VARCHAR(15)
+	,IN  pFechaModificacion DATETIME)
+as
+update PedidoProducto  set  IdProducto=pIdProducto,Cantidad=pCantidad,UnidadMedida=pUnidadMedida,
+UnidadCompra=pUnidadCompra,CantidadEntregada=pCantidadEntregada,
+ModificadoPor=pModificadoPor,FechaModificacion=pFechaModificacion
+where IdPedidoProducto=pIdPedidoProducto;
 END$
 
 
-create proc sp_PedidoProductoEditar(
-    IN  pIdPedido INT
+delimiter $
+CREATE PROCEDURE sp_PedidoProductoCrear(
+   IN  PIdPedido INT
 	,IN  pIdProducto INT
 	,IN  pCantidad DECIMAL(10, 2)
 	,IN  pUnidadMedida VARCHAR(10)
@@ -540,30 +564,6 @@ create proc sp_PedidoProductoEditar(
 	,IN  pCantidadEntregada DECIMAL(10, 2)
 	,IN  pCreadoPor VARCHAR(15)
 	,IN  pFechaCreacion DATETIME
-	,IN  pModificadoPor VARCHAR(15)
-	,IN  pFechaModificacion DATETIME)
-as
-update PedidoProducto  set  IdProducto=pIdProducto,Cantidad=pCantidad,UnidadMedida=pUnidadMedida,
-UnidadCompra=pUnidadCompra,CantidadEntregada=pCantidadEntregada,CreadoPor=pCreadoPor,FechaCreacion=pFechaCreacion,
-ModificadoPor=pModificadoPor,FechaModificacion=pFechaModificacion
-where IdPedido=pIdPedido
-go
-
-
-CREATE
-PROCEDURE sp_PedidoProductoCrear(
-   IN  PIdPedido INT
-	,IN  PIdProducto INT
-	,IN  PCantidad DECIMAL(10, 2)
-	,IN  PUnidadMedida VARCHAR(10)
-	,IN  PPrecioUnidadMedida DECIMAL(10, 2)
-	,IN  PUnidadCompra VARCHAR(10)
-	,IN  PPrecioUnidadCompra DECIMAL(10, 2)
-	,IN  PCantidadEntregada DECIMAL(10, 2)
-	,IN  PCreadoPor VARCHAR(15)
-	,IN  PFechaCreacion DATETIME
-	,IN  PModificadoPor VARCHAR(15)
-	,IN  PFechaModificacion DATETIME
 )
 BEGIN
     INSERT
@@ -571,25 +571,24 @@ INTO
     PedidoProducto
 VALUES(
    NULL,
-    PIdPedido 
-	,PIdProducto 
-	,PCantidad 
-	,PUnidadMedida 
-	,PPrecioUnidadMedida 
-	,PUnidadCompra
-	,PPrecioUnidadCompra 
-	,PCantidadEntregada 
-	,PCreadoPor 
-	,PFechaCreacion 
+    pIdPedido 
+	,pIdProducto 
+	,pCantidad 
+	,pUnidadMedida 
+	,pPrecioUnidadMedida 
+	,pUnidadCompra
+	,pPrecioUnidadCompra 
+	,pCantidadEntregada 
+	,pCreadoPor 
+	,pFechaCreacion 
 	,NULL
 	,NULL
 );
-
+END$
 --ALMACE PROCEDIMIENTO
 
 delimiter $
-CREATE
-PROCEDURE sp_AlmacenLeer()
+CREATE PROCEDURE sp_AlmacenLeer()
 BEGIN
 SELECT
 	IdAlmacen 
