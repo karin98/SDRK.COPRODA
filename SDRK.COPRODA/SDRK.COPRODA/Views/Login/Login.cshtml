@@ -23,18 +23,20 @@
                         @Html.ValidationMessageFor(model => model.UsuarioCD, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ClaveAcceso, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(model => model.ClaveAcceso, new { @class = "form-control", @id = "ClaveAcceso" })
-                            @Html.ValidationMessageFor(model => model.ClaveAcceso, "", new { @class = "text-danger" })
-                        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClaveAcceso, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.ClaveAcceso, new { @class = "form-control", @id = "ClaveAcceso" })
+                        @Html.ValidationMessageFor(model => model.ClaveAcceso, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Iniciar" class="btn btn-default" />
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Iniciar" class="btn btn-default" />
                     </div>
+                </div>
+                @Html.EditorFor(model => model.FechaCreacion, new { @class = "form-control datecontrol" })
+
             }
         </section>
     </div>

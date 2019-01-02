@@ -30,6 +30,9 @@ namespace SDRK.COPRODA.Modelo
 
         public string EstadoUsuario { get; set; }
         public string CreadoPor { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCreacion { get; set; }
         public string ModificadoPor { get; set; }
         public DateTime FechaModificacion { get; set; }

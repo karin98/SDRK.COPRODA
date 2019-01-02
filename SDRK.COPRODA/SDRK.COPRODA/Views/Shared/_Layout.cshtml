@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COPRODA</title>
@@ -21,12 +21,13 @@
                 @Html.ActionLink("COPRODA Sales System", "Index", "Inicio", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @if (Session["TipoUsuario"].ToString()!="") { 
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                </ul>
+                @if (Session["TipoUsuario"].ToString() != "")
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    </ul>
                 }
                 @Html.Partial("_LoginPartial")
             </div>
@@ -43,5 +44,19 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script type="text/javascript">
+            if (!Modernizr.inputtypes.date) {
+                $(function () {
+
+                    $(".datecontrol").datepicker();
+
+                });
+            }
+        </script>
+    }
 </body>
 </html>
