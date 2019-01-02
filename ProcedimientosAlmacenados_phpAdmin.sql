@@ -40,7 +40,7 @@ VALUES(
 );
 END$
 
---Leeer Usuarios
+--LEER USUARIO
 delimiter $
 CREATE
 PROCEDURE sp_UsuarioLeer()
@@ -102,6 +102,29 @@ LIMIT 1;
 call sp_UsuarioLeer();
 
 call sp_UsuarioValidar("kminpaia","13");
+
+--EDITAR USUARIO
+
+create proc UsuarioEditar(
+    IN pIdusuario INT,
+    IN pTipoUsuario varchar (50),
+    IN pNombre VARCHAR(50),
+    IN pApellido VARCHAR(50),
+    IN pIdTipoDocumento VARCHAR(6),
+    IN pDocumentoIdentidad VARCHAR(20),
+    IN pTelefono VARCHAR(10),
+    IN pCelular VARCHAR(10),
+    IN pUsuario VARCHAR(15),
+    IN pClaveAcceso VARCHAR(100),
+    IN pPEstadoUsuario VARCHAR(20),
+    IN pCreadoPor VARCHAR(15),
+    IN pFechaCreacion DATETIME)
+as
+update Usuario set TipoUsuario=pTipoUsuario, Nombre=pNombre, Apellido=pApellido,
+IdTipoDocumento=pIdTipoDocumento,DocumentoIdentidad=pDocumentoIdentidad,Telefono=pTelefono,Celular=pCelular,
+Usuario=pUsuario,ClaveAcceso=pClaveAcceso,EstadoUsuario=pEstadoUsuario,CreadoPor=pCreadoPor,FechaCreacion=pFechaCreacion
+where Idusuario=pIdusuario
+go 
 
 
 /* Producto procedimiento */
@@ -191,8 +214,26 @@ end $
 	select  distinct * from producto;
     
     /* PEDIDOS   */
-    
-    drop procedure sp_PedidoCrear;
+
+
+
+	create proc PedidoEditar(
+    in pIdPedido INT
+	,in pDireccionFacturacion VARCHAR(50)
+	,in pIdDireccionEntrega INT
+	,in pTipoEntrega VARCHAR(50)
+	,in pFechaEntrega DATETIME
+	,in pEstadoPedido VARCHAR(20)
+	,in pFechaCambioEstado DATETIME
+	,in pModificadoPor VARCHAR(15)
+	,in pFechaModificacion DATETIME)
+as
+update Pedido set DireccionFacturacion =pDireccionFacturacion, IdDireccionEntrega=pIdDireccionEntrega, TipoEntrega=pTipoEntrega,
+FechaEntrega=pFechaEntrega,EstadoPedido=pEstadoPedido,FechaCambioEstado=pFechaCambioEstado,ModificadoPor=pModificadoPor,
+FechaModificacion=pFechaModificacion,where IdPedido=pIdPedido
+go 
+
+
     delimiter $
     create procedure sp_PedidoCrear(
     in IdUsuario INT
@@ -275,7 +316,54 @@ end $
     end $
         
     
-    /* Cliente*/
+    /* Cliente PROCEDIMIENTO*/
+
+delimiter $
+CREATE
+PROCEDURE sp_ClienteLeer()
+BEGIN
+SELECT
+	IdTipoCliente
+	,Nombre
+	,Apellido
+	,IdTipoDocumento
+	,DocumentoIdentidad 
+	,RazonSocial 
+	,RUC 
+	,Telefono 
+	,Celular 
+	,Email 
+	,EstadoCliente 
+	,CreadoPor 
+	,FechaCreacion
+FROM
+    Cliente;
+END$
+
+	create proc ClienteEditar(
+     in pIdTipoCliente VARCHAR(6)
+	,in pNombre VARCHAR(50)
+	,in pApellido VARCHAR(50)
+	,in pIdTipoDocumento VARCHAR(6)
+	,in pDocumentoIdentidad VARCHAR(20)
+	,in pRazonSocial VARCHAR(50)
+	,in pRUC VARCHAR(10)
+	,in pTelefono VARCHAR(10)
+	,in pCelular VARCHAR(10)
+	,in pEmail VARCHAR(100)
+	,in pEstadoCliente VARCHAR(20)
+	,in pCreadoPor VARCHAR(15)
+	,in pFechaCreacion DATETIME)
+as
+update Cliente  set  IdTipoCliente=pIdTipoCliente, Nombre=pNombre,Apellido=pApellido,IdTipoDocumento=pIdTipoDocumento,
+DocumentoIdentidad=pDocumentoIdentidad, RazonSocial=pRazonSocial,RUC=pRUC,Telefono=pTelefono,Celular=pCelular,Email=pEmail,
+EstadoCliente=pEstadoCliente,CreadoPor=pCreadoPor,FechaCreacion=pFechaCreacion
+where IdPedido=pIdPedido
+go
+
+
+
+
 Delimiter $
 create procedure sp_ClienteCrear (
      in IdTipoCliente VARCHAR(6)
@@ -320,7 +408,61 @@ select * from TipoCliente;
 '01654123','921789456','jorgeq@outlook.com','Activo','kminpai','2018-12-31');
     
     select * from Cliente
-Delimiter $
+
+
+
+
+
+
+
+
+
+-- DIRECCION PROCEDIMIENTO
+
+
+delimiter $
+CREATE
+PROCEDURE sp_DireccionLeer()
+BEGIN
+SELECT
+	IdDireccion
+	,IdCliente 
+	,NombreDireccion 
+	,Calle1 
+	,Calle2 
+	,Distrito 
+	,Departamento
+	,Provincia 
+	,EstadoDireccion
+	,CreadoPor 
+	,FechaCreacion 
+	,ModificadoPor
+	,FechaModificacion 
+FROM
+    Direccion;
+END$
+
+
+create proc DireccionEditar(
+    in pIdCliente INT
+	,in pNombreDireccion VARCHAR(50)
+	,in pCalle1 VARCHAR(50)
+	,in pCalle2 VARCHAR(50)
+	,in pDistrito VARCHAR(50)
+	,in pDepartamento VARCHAR(50)
+	,in pProvincia VARCHAR(50)
+	,in pEstadoDireccion VARCHAR(20)
+	,in pCreadoPor VARCHAR(15)
+	,in pFechaCreacion DATETIME)
+as
+update Direccion  set  NombreDireccion=pNombreDireccion,Calle1 =pCalle1,Calle2=pCalle2,Distrito=pDistrito,
+Departamento=pDepartamento,Provincia=pProvincia,EstadoDireccion=pEstadoDireccion,CreadoPor=pCreadoPor,
+FechaCreacion=pFechaCreacion
+where IdCliente=pIdCliente
+go
+
+
+
 create procedure sp_DireccionCrear (
 	 in IdCliente INT
 	,in NombreDireccion VARCHAR(50)
@@ -359,3 +501,110 @@ create procedure sp_DireccionCrear (
     'Lima','Activo','kminpai','2018-12-31');
     
 select * from direccion
+
+
+/*PEDIDO PRODUCTO PROC  */
+
+
+delimiter $
+CREATE
+PROCEDURE sp_PedidoProductoLeer()
+BEGIN
+SELECT
+	IdPedidoProducto 
+	,IdPedido 
+	,IdProducto 
+	,Cantidad 
+	,UnidadMedida 
+	,PrecioUnidadMedida 
+	,UnidadCompra
+	,PrecioUnidadCompra 
+	,CantidadEntregada 
+	,CreadoPor
+	,FechaCreacion 
+	,ModificadoPor 
+	,FechaModificacion
+FROM
+    PedidoProducto;
+END$
+
+
+create proc sp_PedidoProductoEditar(
+    IN  pIdPedido INT
+	,IN  pIdProducto INT
+	,IN  pCantidad DECIMAL(10, 2)
+	,IN  pUnidadMedida VARCHAR(10)
+	,IN  pPrecioUnidadMedida DECIMAL(10, 2)
+	,IN  pUnidadCompra VARCHAR(10)
+	,IN  pPrecioUnidadCompra DECIMAL(10, 2)
+	,IN  pCantidadEntregada DECIMAL(10, 2)
+	,IN  pCreadoPor VARCHAR(15)
+	,IN  pFechaCreacion DATETIME
+	,IN  pModificadoPor VARCHAR(15)
+	,IN  pFechaModificacion DATETIME)
+as
+update PedidoProducto  set  IdProducto=pIdProducto,Cantidad=pCantidad,UnidadMedida=pUnidadMedida,
+UnidadCompra=pUnidadCompra,CantidadEntregada=pCantidadEntregada,CreadoPor=pCreadoPor,FechaCreacion=pFechaCreacion,
+ModificadoPor=pModificadoPor,FechaModificacion=pFechaModificacion
+where IdPedido=pIdPedido
+go
+
+
+CREATE
+PROCEDURE sp_PedidoProductoCrear(
+   IN  PIdPedido INT
+	,IN  PIdProducto INT
+	,IN  PCantidad DECIMAL(10, 2)
+	,IN  PUnidadMedida VARCHAR(10)
+	,IN  PPrecioUnidadMedida DECIMAL(10, 2)
+	,IN  PUnidadCompra VARCHAR(10)
+	,IN  PPrecioUnidadCompra DECIMAL(10, 2)
+	,IN  PCantidadEntregada DECIMAL(10, 2)
+	,IN  PCreadoPor VARCHAR(15)
+	,IN  PFechaCreacion DATETIME
+	,IN  PModificadoPor VARCHAR(15)
+	,IN  PFechaModificacion DATETIME
+)
+BEGIN
+    INSERT
+INTO
+    PedidoProducto
+VALUES(
+   NULL,
+    PIdPedido 
+	,PIdProducto 
+	,PCantidad 
+	,PUnidadMedida 
+	,PPrecioUnidadMedida 
+	,PUnidadCompra
+	,PPrecioUnidadCompra 
+	,PCantidadEntregada 
+	,PCreadoPor 
+	,PFechaCreacion 
+	,NULL
+	,NULL
+);
+
+--ALMACE PROCEDIMIENTO
+
+delimiter $
+CREATE
+PROCEDURE sp_AlmacenLeer()
+BEGIN
+SELECT
+	IdAlmacen 
+	,IdProducto 
+	,Stock 
+	,StockMinimo 
+	,Estado
+	,CreadoPor 
+	,FechaCreacion 
+	,ModificadoPor 
+	,FechaModificacion 
+FROM
+    Almacen;
+END$
+
+
+
+
