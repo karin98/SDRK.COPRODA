@@ -10,6 +10,6 @@ namespace SDRK.COPRODA.Modelo
     {
         public string IdTipoComprobante { get; set; }
         public string TipoComprobanteValor { get; set; }
-        public string Decripcion { get; set; }
+        public string Descripcion { get; set; }
     }
 }

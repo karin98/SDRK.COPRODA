@@ -122,13 +122,13 @@ namespace SDRK.COPRODA.Datos
             }
         }
 
-        public string PedidoActualizar(string DireccionFacturacion, int IdDireccionEntrega, string TipoEntrega, DateTime FechaEntrega, string EstadoPedido, DateTime FechaCambioEstado, string ModificadoPor, DateTime FechaModificacion)
+        public string PedidoEditar(string DireccionFacturacion, int IdDireccionEntrega, string TipoEntrega, DateTime FechaEntrega, string EstadoPedido, DateTime FechaCambioEstado, string ModificadoPor, DateTime FechaModificacion)
         {
             try
             {
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "sp_PedidoActualizar"; //Crear Procedimiento
+                cmd.CommandText = "sp_PedidoEditar"; //Crear Procedimiento
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
 
@@ -151,6 +151,89 @@ namespace SDRK.COPRODA.Datos
                 cnn.Desconectar();
                 return "Error al actualizar el pedido";
             }
+        }
+
+        public List<TipoTransaccion> TipoTransaccionLeer()
+        {
+            List<TipoTransaccion> tipoTransacciones = new List<TipoTransaccion>();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_TipoTransaccionLeer"; //Crear Procedimiento
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+
+                cmd.ExecuteNonQuery();
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                for (int n = 0; n < dt.Rows.Count; n++)
+                {
+                    TipoTransaccion tipoTransaccion = new TipoTransaccion();
+                    tipoTransaccion.IdTipoTransaccion = Funciones.ToString(dt.Rows[n]["IdTipoTransaccion"]);
+                    tipoTransaccion.TipoTransaccionValor = Funciones.ToString(dt.Rows[n]["TipoTransaccion"]);
+                    tipoTransaccion.Descripcion = Funciones.ToString(dt.Rows[n]["Decripcion"]);
+                    tipoTransacciones.Add(tipoTransaccion);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+            }
+            try
+            {
+                cnn.Desconectar();
+            }
+            catch (Exception ex) { }
+
+            return tipoTransacciones;
+        }
+
+        /*Tipo Comprobante de Pago (Comprobante de Pago)*/
+        public List<TipoComprobante> TipoComprobanteLeer()
+        {
+            List<TipoComprobante> tipoComprobantes = new List<TipoComprobante>();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_TipoComprobanteLeer"; //Crear Procedimiento
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+
+                cmd.ExecuteNonQuery();
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                for (int n = 0; n < dt.Rows.Count; n++)
+                {
+                    TipoComprobante tipoComprobante = new TipoComprobante();
+                    tipoComprobante.IdTipoComprobante = Funciones.ToString(dt.Rows[n]["IdTipoComprobante"]);
+                    tipoComprobante.TipoComprobanteValor = Funciones.ToString(dt.Rows[n]["TipoComprobante"]);
+                    tipoComprobante.Descripcion = Funciones.ToString(dt.Rows[n]["Decripcion"]);
+                    tipoComprobantes.Add(tipoComprobante);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+            }
+            try
+            {
+                cnn.Desconectar();
+            }
+            catch (Exception ex) { }
+
+            return tipoComprobantes;
         }
 
     }

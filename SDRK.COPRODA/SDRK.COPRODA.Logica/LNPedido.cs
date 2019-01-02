@@ -16,5 +16,10 @@ namespace SDRK.COPRODA.Logica
         {
             return adPedido.PedidoLeer(IdPedido);
         }
-    }
+
+        public List<TipoTransaccion> TipoTransaccionLeer()
+        {
+            return adPedido.TipoTransaccionLeer();
+        }
+        }
 }

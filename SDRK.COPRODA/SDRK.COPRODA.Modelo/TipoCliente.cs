@@ -10,6 +10,6 @@ namespace SDRK.COPRODA.Modelo
     {
         public string IdTipoCliente { get; set; }
         public string TipoClienteValor { get; set; }
-        public string Decripcion { get; set; }
+        public string Descripcion { get; set; }
     }
 }
