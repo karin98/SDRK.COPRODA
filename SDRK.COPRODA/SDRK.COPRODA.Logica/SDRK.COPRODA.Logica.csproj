@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="LNCliente.cs" />
     <Compile Include="LNPedido.cs" />
+    <Compile Include="LNPedidoProducto.cs" />
     <Compile Include="LNUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
