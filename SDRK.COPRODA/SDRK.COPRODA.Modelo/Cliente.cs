@@ -43,8 +43,8 @@ namespace SDRK.COPRODA.Modelo
         public string Email { get; set; }
 
         [Required]
-        public string Estado { get; set; }
-        
+        public string EstadoCliente { get; set; }
+
         public string CreadoPor { get; set; }
         public DateTime FechaCreacion { get; set; }
         public string ModificadoPor { get; set; }

@@ -21,7 +21,7 @@ namespace SDRK.COPRODA.Datos
             {
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "sp_PedidoLeer"; 
+                cmd.CommandText = "sp_PedidoLeer";
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
                 cmd.Parameters.AddWithValue("PIdPedido", IdPedido);
@@ -67,7 +67,7 @@ namespace SDRK.COPRODA.Datos
             return pedidos;
         }
 
-        public string PedidoActualizarEstado(int IdPedido,string EstadoPedidoedido)
+        public string PedidoActualizarEstado(int IdPedido, string EstadoPedidoedido)
         {
             try
             {

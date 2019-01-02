@@ -12,6 +12,21 @@ namespace SDRK.COPRODA.Logica
     {
         ADCliente adCliente = new ADCliente();
 
+        public List<Cliente> ClienteLeer() //Agregar Parametros
+        {
+            return adCliente.ClienteLeer();
+        }
+
+        public string ClienteCrear(Cliente cliente)
+        {
+            return adCliente.ClienteCrear(cliente);
+        }
+
+        public string ClienteEditar(Cliente cliente)
+        {
+            return adCliente.ClienteEditar(cliente);
+        }
+
         public List<TipoDocumento> TipoDocumentoLeer()
         {
             return adCliente.TipoDocumentoLeer();

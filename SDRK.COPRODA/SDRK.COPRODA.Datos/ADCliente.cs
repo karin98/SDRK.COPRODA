@@ -14,48 +14,133 @@ namespace SDRK.COPRODA.Datos
         ADConexion cnn = new ADConexion();
 
 
-        //public List<Cliente> ClienteLeer()
-        //{
-        //    List<Cliente> tipoComprobantes = new List<Cliente>();
+        public List<Cliente> ClienteLeer()
+        {
+            List<Cliente> clientes = new List<Cliente>();
 
-        //    try
-        //    {
-        //        MySqlCommand cmd = new MySqlCommand();
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.CommandText = "sp_TipoComprobanteLeer"; //Crear Procedimiento
-        //        cmd.Connection = cnn.cn;
-        //        cnn.Conectar();
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_ClienteLeer"; //Crear Procedimiento
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
 
-        //        cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
 
-        //        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-        //        DataTable dt = new DataTable();
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
 
-        //        da.Fill(dt);
+                da.Fill(dt);
 
-        //        for (int n = 0; n < dt.Rows.Count; n++)
-        //        {
-        //            TipoComprobante tipoComprobante = new TipoComprobante();
-        //            tipoComprobante.IdTipoComprobante = Funciones.ToString(dt.Rows[n]["IdTipoComprobante"]);
-        //            tipoComprobante.TipoComprobanteValor = Funciones.ToString(dt.Rows[n]["TipoComprobante"]);
-        //            tipoComprobante.Decripcion = Funciones.ToString(dt.Rows[n]["Decripcion"]);
-        //            tipoComprobantes.Add(tipoComprobante);
-        //        }
-        //    }
-        //    catch (MySqlException ex)
-        //    {
-        //        cnn.Desconectar();
-        //    }
-        //    try
-        //    {
-        //        cnn.Desconectar();
-        //    }
-        //    catch (Exception ex) { }
+                for (int n = 0; n < dt.Rows.Count; n++)
+                {
+                    Cliente cliente = new Cliente();
+                    cliente.IdCliente = Funciones.ToInt(dt.Rows[n]["IdCliente"]);
+                    cliente.IdTipoCliente = Funciones.ToString(dt.Rows[n]["IdTipoCliente"]);
+                    cliente.Nombre = Funciones.ToString(dt.Rows[n]["Nombre"]);
+                    cliente.Apellido = Funciones.ToString(dt.Rows[n]["Apellido"]);
+                    cliente.IdTipoDocumento = Funciones.ToString(dt.Rows[n]["IdTipoDocumento"]);
+                    cliente.DocumentoIdentidad = Funciones.ToString(dt.Rows[n]["DocumentoIdentidad"]);
+                    cliente.RazonSocial = Funciones.ToString(dt.Rows[n]["RazonSocial"]);
+                    cliente.RUC = Funciones.ToString(dt.Rows[n]["RUC"]);
+                    cliente.Telefono = Funciones.ToString(dt.Rows[n]["Telefono"]);
+                    cliente.Celular = Funciones.ToString(dt.Rows[n]["Celular"]);
+                    cliente.Email = Funciones.ToString(dt.Rows[n]["Email"]);
+                    cliente.EstadoCliente = Funciones.ToString(dt.Rows[n]["EstadoCliente"]);
+                    cliente.CreadoPor = Funciones.ToString(dt.Rows[n]["CreadoPor"]);
+                    cliente.FechaCreacion = Funciones.ToDateTime(dt.Rows[n]["FechaCreacion"]);
+                    cliente.ModificadoPor = Funciones.ToString(dt.Rows[n]["ModificadoPor"]);
+                    cliente.FechaModificacion = Funciones.ToDateTime(dt.Rows[n]["FechaModificacion"]);
+                    clientes.Add(cliente);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+            }
+            try
+            {
+                cnn.Desconectar();
+            }
+            catch (Exception ex) { }
 
-        //    return tipoComprobantes;
-        //}
+            return clientes;
+        }
 
-        public List<TipoCliente> TipoClienteLeer() 
+        public string ClienteCrear(Cliente cliente)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_ClienteCrear";
+                cnn.Conectar();
+
+                cmd.Parameters.AddWithValue("pIdTipoCliente", cliente.IdTipoCliente);
+                cmd.Parameters.AddWithValue("pNombre", cliente.Nombre);
+                cmd.Parameters.AddWithValue("pApellido", cliente.Apellido);
+                cmd.Parameters.AddWithValue("pIdTipoDocumento", cliente.IdTipoDocumento);
+                cmd.Parameters.AddWithValue("pDocumentoIdentidad", cliente.DocumentoIdentidad);
+                cmd.Parameters.AddWithValue("pRazonSocial", cliente.RazonSocial);
+                cmd.Parameters.AddWithValue("pRUC", cliente.RUC);
+                cmd.Parameters.AddWithValue("pTelefono", cliente.Telefono);
+                cmd.Parameters.AddWithValue("pCelular", cliente.Celular);
+                cmd.Parameters.AddWithValue("pEmail", cliente.CreadoPor);
+                cmd.Parameters.AddWithValue("pEstadoCliente", cliente.FechaCreacion);
+                cmd.Parameters.AddWithValue("pCreadoPor", cliente.CreadoPor);
+                cmd.Parameters.AddWithValue("pFechaCreacion", cliente.FechaCreacion);
+
+                cmd.ExecuteNonQuery();
+                cnn.Desconectar();
+
+                return "";
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+                return "Error al crear al cliente";
+            }
+        }
+
+        public string ClienteEditar(Cliente cliente)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_ClienteEditar"; //Crear Procedimiento
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+
+                cmd.Parameters.AddWithValue("pIdCliente", cliente.IdCliente);
+                cmd.Parameters.AddWithValue("pIdTipoCliente", cliente.IdTipoCliente);
+                cmd.Parameters.AddWithValue("pNombre", cliente.Nombre);
+                cmd.Parameters.AddWithValue("pApellido", cliente.Apellido);
+                cmd.Parameters.AddWithValue("pIdTipoDocumento", cliente.IdTipoDocumento);
+                cmd.Parameters.AddWithValue("pDocumentoIdentidad", cliente.DocumentoIdentidad);
+                cmd.Parameters.AddWithValue("pRazonSocial", cliente.RazonSocial);
+                cmd.Parameters.AddWithValue("pRUC", cliente.RUC);
+                cmd.Parameters.AddWithValue("pTelefono", cliente.Telefono);
+                cmd.Parameters.AddWithValue("pCelular", cliente.Celular);
+                cmd.Parameters.AddWithValue("pEmail", cliente.CreadoPor);
+                cmd.Parameters.AddWithValue("pEstadoCliente", cliente.FechaCreacion);
+                cmd.Parameters.AddWithValue("pModificadoPor", cliente.ModificadoPor);
+                cmd.Parameters.AddWithValue("pFechaModificacion", cliente.FechaModificacion);
+
+                cmd.ExecuteNonQuery();
+                cnn.Desconectar();
+
+                return "";
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+                return "Error al actualizar el cliente";
+            }
+        }
+
+        public List<TipoCliente> TipoClienteLeer()
         {
             List<TipoCliente> tipoClientes = new List<TipoCliente>();
 
