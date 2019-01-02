@@ -18,37 +18,37 @@ namespace SDRK.COPRODA.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Login(Usuario usuario)
         {
-            if (Convert.ToBoolean(Session["Login"]))
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                Usuario usuarioDatos = lnUsuario.Usuario_Validar(usuario.UsuarioCD, usuario.ClaveAcceso);
+                Session["MensajeLogin"] = "";
+                if (usuario.UsuarioCD == usuario.UsuarioCD && usuario.ClaveAcceso == usuario.ClaveAcceso)
                 {
-                    Usuario usuarioDatos = lnUsuario.Usuario_Validar(usuario.UsuarioCD, usuario.ClaveAcceso);
-                    Session["MensajeLogin"] = "";
-                    if (usuario.UsuarioCD == usuario.UsuarioCD && usuario.ClaveAcceso == usuario.ClaveAcceso)
-                    {
-                        Session["Login"] = true;
-                        Session["NombreUsuario"] = usuarioDatos.Nombre;
-                        Session["ApellidoUsuario"] = usuarioDatos.Apellido;
-                        Session["TipoUsuario"] = usuarioDatos.TipoUsuario;
-                        Session["Usuario"] = usuarioDatos.UsuarioCD;
-                        return RedirectToAction("Index", "Inicio");
-                    }
-                    else
-                    {
-                        Session["MensajeLogin"] = "Credenciales Incorrectas";
-                        return RedirectToAction("Index", "Login");
-                    }
+                    Session["Login"] = true;
+                    Session["NombreUsuario"] = usuarioDatos.Nombre;
+                    Session["ApellidoUsuario"] = usuarioDatos.Apellido;
+                    Session["TipoUsuario"] = usuarioDatos.TipoUsuario;
+                    Session["Usuario"] = usuarioDatos.UsuarioCD;
+                    return RedirectToAction("Index", "Inicio");
                 }
                 else
                 {
+                    Session["MensajeLogin"] = "Credenciales Incorrectas";
                     return RedirectToAction("Index", "Login");
                 }
-            }else
+            }
+            else
             {
-                return RedirectToAction("Index", "Home");
+                return View();
             }
         }
     }

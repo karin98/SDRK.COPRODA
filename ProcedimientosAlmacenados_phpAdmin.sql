@@ -191,6 +191,8 @@ end $
 	select  distinct * from producto;
     
     /* PEDIDOS   */
+    
+    drop procedure sp_PedidoCrear;
     delimiter $
     create procedure sp_PedidoCrear(
     in IdUsuario INT
@@ -223,9 +225,55 @@ end $
 	,FechaCambioEstado
 	,CreadoPor
 	,FechaCreacion
-	,null 
-	,null);
+	,'' 
+	,'');
     end $
+
+    call sp_PedidoCrear(26,1,'Lima Indepencia',2,'Domicilio','2019-01-01','Borrador','','robertbr','2019-01-01')
+    
+    drop procedure sp_PedidoLeer;
+    delimiter $
+    create procedure sp_PedidoLeer(
+    in PIdPedido INT)
+	begin
+    if PIdPedido is null or PIdPedido = 0 then
+    select IdPedido,
+    NumeroPedido
+    ,IdUsuario 
+	,IdCliente 
+	,DireccionFacturacion 
+	,IdDireccionEntrega 
+	,TipoEntrega
+	,FechaEntrega
+	,EstadoPedido
+	,FechaCambioEstado
+	,CreadoPor
+	,FechaCreacion
+    ,ModificadoPor
+	,FechaModificacion 
+	 from 
+    Pedido limit 30;
+    
+    else
+    
+    select IdPedido ,
+    NumeroPedido
+    ,IdUsuario 
+	,IdCliente 
+	,DireccionFacturacion 
+	,IdDireccionEntrega 
+	,TipoEntrega
+	,FechaEntrega
+	,EstadoPedido
+	,FechaCambioEstado
+	,CreadoPor
+	,FechaCreacion
+    ,ModificadoPor
+	,FechaModificacion  from 
+    Pedido where IdPedido = PIdPedido limit 30;
+    end if;
+    end $
+        
     
     /* Cliente*/
 Delimiter $

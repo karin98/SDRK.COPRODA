@@ -8,21 +8,21 @@
 {
     @Session["MensajeLogin"].ToString();
 }
-    <div class="row">
-        <div class="col-md-8">
-            <section id="loginForm">
-                <h4>Use una cuenta local para iniciar sesión.</h4>
-                <hr />
-                @using (Html.BeginForm("Login", "Login", null, FormMethod.Post, new { @class = "form-horizontal" }))
-                {
-                    @Html.AntiForgeryToken()    
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.UsuarioCD, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.UsuarioCD, new { @class = "form-control", @id = "UsuarioCD" })
-                            @Html.ValidationMessageFor(model => model.UsuarioCD, "", new { @class = "text-danger" })
-                        </div>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            <h4>Use una cuenta local para iniciar sesión.</h4>
+            <hr />
+            @using (Html.BeginForm("Login", "Login", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UsuarioCD, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.UsuarioCD, new { @class = "form-control", @id = "UsuarioCD" })
+                        @Html.ValidationMessageFor(model => model.UsuarioCD, "", new { @class = "text-danger" })
                     </div>
+                </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.ClaveAcceso, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
@@ -35,7 +35,7 @@
                             <input type="submit" value="Iniciar" class="btn btn-default" />
                         </div>
                     </div>
-                }
-            </section>
-        </div>
+            }
+        </section>
     </div>
+</div>

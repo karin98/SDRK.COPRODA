@@ -1,4 +1,5 @@
-﻿using SDRK.COPRODA.Logica;
+﻿using SDRK.COPRODA.Common;
+using SDRK.COPRODA.Logica;
 using SDRK.COPRODA.Modelo;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace SDRK.COPRODA.Controllers
 {
     public class UsuarioController : Controller
     {
+        Util util = new Util();
         LNUsuario lnUsuario = new LNUsuario();
         // GET: Usuario
         public ActionResult Index()
@@ -20,6 +22,7 @@ namespace SDRK.COPRODA.Controllers
         [HttpGet]
         public ActionResult CrearUsuario()
         {
+            ViewBag.ListaEstados = util.DropDownListaEstados();
             ViewBag.MensajeUsuarioCrear = "";
             return View();
         }

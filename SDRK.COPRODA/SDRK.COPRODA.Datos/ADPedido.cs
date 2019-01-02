@@ -13,9 +13,9 @@ namespace SDRK.COPRODA.Datos
     {
         ADConexion cnn = new ADConexion();
 
-        public Pedido PedidoLeer(string IdPedido)
+        public List<Pedido> PedidoLeer(int IdPedido)
         {
-            Pedido pedido = new Pedido();
+            List<Pedido> pedidos = new List<Pedido>();
 
             try
             {
@@ -24,10 +24,9 @@ namespace SDRK.COPRODA.Datos
                 cmd.CommandText = "sp_PedidoLeer"; //Crear Procedimiento
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
-                cmd.Parameters.AddWithValue("pIdPedido", IdPedido);
+                cmd.Parameters.AddWithValue("PIdPedido", IdPedido);
 
                 cmd.ExecuteNonQuery();
-                cnn.Desconectar();
 
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -36,6 +35,7 @@ namespace SDRK.COPRODA.Datos
 
                 for (int n = 0; n < dt.Rows.Count; n++)
                 {
+                    Pedido pedido = new Pedido();
                     pedido.IdPedido = Funciones.ToInt(dt.Rows[n]["IdPedido"]);
                     pedido.NumeroPedido = Funciones.ToString(dt.Rows[n]["NumeroPedido"]);
                     pedido.IdUsuario = Funciones.ToInt(dt.Rows[n]["IdUsuario"]);
@@ -50,16 +50,21 @@ namespace SDRK.COPRODA.Datos
                     pedido.FechaCreacion = Funciones.ToDateTime(dt.Rows[n]["FechaCreacion"]);
                     pedido.ModificadoPor = Funciones.ToString(dt.Rows[n]["ModificadoPor"]);
                     pedido.FechaModificacion = Funciones.ToDateTime(dt.Rows[n]["FechaModificacion"]);
+                    pedidos.Add(pedido);
 
-                    cnn.Desconectar();
                 }
             }
             catch (MySqlException ex)
             {
                 cnn.Desconectar();
             }
+            try
+            {
+                cnn.Desconectar();
+            }
+            catch (Exception ex) { }
 
-            return pedido;
+            return pedidos;
         }
 
         public string PedidoActualizarEstado(string EstadoPedidoedido)

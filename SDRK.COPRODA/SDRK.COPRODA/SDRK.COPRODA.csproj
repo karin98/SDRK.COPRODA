@@ -214,6 +214,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\Util.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -301,16 +302,21 @@
     <Content Include="Views\Inicio\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Cliente\ClienteCrear.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Pedido\PedidoListar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Pedido\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SDRK.COPRODA.Datos\SDRK.COPRODA.Datos.csproj">
+      <Project>{03EE39B0-0E94-4631-811F-9DC3B558D8C5}</Project>
+      <Name>SDRK.COPRODA.Datos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SDRK.COPRODA.Logica\SDRK.COPRODA.Logica.csproj">
       <Project>{399E9818-68AF-4E9F-AFB5-2ADF0B1AFA6F}</Project>
       <Name>SDRK.COPRODA.Logica</Name>
