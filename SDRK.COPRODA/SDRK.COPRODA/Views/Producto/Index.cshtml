@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Productos</h2>
+
+<div id="divProductoListar">
+    @Html.Action("ProductoListar", "Producto", new { idProducto = 0 })
+</div>
+<div class="form-group">
+    <div class="col-md-12">
+        <div class="btn btn-default" onclick="history.go(-1)">Volver</div>
+    </div>
+</div>

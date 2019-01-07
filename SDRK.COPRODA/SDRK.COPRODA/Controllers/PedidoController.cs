@@ -26,7 +26,7 @@ namespace SDRK.COPRODA.Controllers
         {
             ViewBag.ListaEstadoPedido = util.DropDownListaEstadoPedido();
             ViewBag.ListaCliente = util.DropDownListaCliente();
-            ViewBag.ListaDirecciones = util.DropDownDireccion(0);
+            ViewBag.ListaDirecciones = util.DropDownDireccion(0,0);
             ViewBag.ListaTipoEntrega = util.DropDownListaTipoEntrega();
 
             return View();
@@ -52,7 +52,7 @@ namespace SDRK.COPRODA.Controllers
                     ViewBag.ListaEstadoPedido = util.DropDownListaEstadoPedido();
                     ViewBag.ListaTipoEntrega = util.DropDownListaTipoEntrega();
                     ViewBag.ListaCliente = util.DropDownListaCliente();
-                    ViewBag.ListaDirecciones = util.DropDownDireccion(pedido.IdCliente);
+                    ViewBag.ListaDirecciones = util.DropDownDireccion(0,pedido.IdCliente);
                     return View();
                 }
             }
@@ -61,7 +61,7 @@ namespace SDRK.COPRODA.Controllers
                 ViewBag.ListaEstadoPedido = util.DropDownListaEstadoPedido();
                 ViewBag.ListaTipoEntrega = util.DropDownListaTipoEntrega();
                 ViewBag.ListaCliente = util.DropDownListaCliente();
-                ViewBag.ListaDirecciones = util.DropDownDireccion(pedido.IdCliente);
+                ViewBag.ListaDirecciones = util.DropDownDireccion(0,pedido.IdCliente);
                 return View();
             }
         }
@@ -85,7 +85,7 @@ namespace SDRK.COPRODA.Controllers
             pedido.TotalPedido = Total;
             pedido.TotalItems = origenDatos.Count;
 
-            ViewBag.ListaDireccion = util.DropDownDireccion(pedido.IdCliente);
+            ViewBag.ListaDireccion = util.DropDownDireccion(0,pedido.IdCliente);
             return View(pedido);
         }
 

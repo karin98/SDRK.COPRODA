@@ -136,9 +136,9 @@ namespace SDRK.COPRODA.Common
             return listItemsResultado;
         }
 
-        public List<SelectListItem> DropDownDireccion(int IdCliente)
+        public List<SelectListItem> DropDownDireccion(int idDireccion, int idCliente)
         {
-            List<Direccion> origenDatos = lnCliente.DireccionLeer(IdCliente);
+            List<Direccion> origenDatos = lnCliente.DireccionLeer(idDireccion, idCliente);
             List<SelectListItem> listItemsResultado = new List<SelectListItem>();
 
             foreach (Direccion direccion in origenDatos)

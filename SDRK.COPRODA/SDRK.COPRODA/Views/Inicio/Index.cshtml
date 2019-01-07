@@ -3,19 +3,18 @@
     ViewBag.Title = "Index";
 }
 <h3>Bienvenido @Session["NombreUsuario"].ToString() @Session["ApellidoUsuario"].ToString()</h3>
-
+<hr />
 <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Ver Pedidos" class="btn btn-default" />
-    </div>
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Ver Usuarios" class="btn btn-default" />
+    <div class="col-md-12">
+        <input value="Nuevo Pedido" class="btn btn-default" onclick="location.href = '/Pedido/PedidoCrear';" />
+        <input value="Registrar Nuevo Cliente" class="btn btn-default" onclick="location.href = '/Cliente/ClienteCrear';" />
+        <input value="Ver Productos" class="btn btn-default" onclick="location.href = '/Producto/Index';" />
     </div>
 </div>
-
-<br />
-<br />
-
+<hr />
+<h2>Pedidos Recientes</h2>
 <div id="divPedidoListar">
     @Html.Action("PedidoListar", "Pedido", new { IdPedido = 0 })
 </div>
+
+<hr />

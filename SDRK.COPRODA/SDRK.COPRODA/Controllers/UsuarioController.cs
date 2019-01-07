@@ -22,26 +22,48 @@ namespace SDRK.COPRODA.Controllers
         [HttpGet]
         public ActionResult CrearUsuario()
         {
-            ViewBag.ListaEstados = util.DropDownListaEstados();
-            ViewBag.MensajeUsuarioCrear = "";
-            return View();
+            if (Session["TipoUsuario"].ToString() == "Administrador")
+            {
+                ViewBag.ListaEstados = util.DropDownListaEstados();
+                ViewBag.ListaTipoUsuario = util.DropDownTipoUsuario();
+                ViewBag.ListaTipoDocumento = util.DropDownTipoDocumento();
+                ViewBag.MensajeUsuarioCrear = "";
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Inicio");
+            }
         }
 
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CrearUsuario(Usuario usuario)
         {
-            string Respuesta = "";
-            usuario.CreadoPor = Session["Usuario"].ToString();
-            usuario.FechaCreacion = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                string Respuesta = "";
+                usuario.CreadoPor = Session["Usuario"].ToString();
+                usuario.FechaCreacion = DateTime.Now;
 
-            Respuesta = lnUsuario.UsuarioCrear(usuario);
+                Respuesta = lnUsuario.UsuarioCrear(usuario);
 
-            if (Respuesta == "")
-                return RedirectToAction("Index", "Login");
+                if (Respuesta == "")
+                    return RedirectToAction("Index", "Inicio");
+                else
+                {
+                    ViewBag.MensajeUsuarioCrear = Respuesta;
+                    ViewBag.ListaEstados = util.DropDownListaEstados();
+                    ViewBag.ListaTipoUsuario = util.DropDownTipoUsuario();
+                    ViewBag.ListaTipoDocumento = util.DropDownTipoDocumento();
+                    return View();
+                }
+            }
             else
             {
-                ViewBag.MensajeUsuarioCrear = Respuesta;
-                return RedirectToAction("CrearUsuario", "Usuario");
+                ViewBag.ListaEstados = util.DropDownListaEstados();
+                ViewBag.ListaTipoUsuario = util.DropDownTipoUsuario();
+                ViewBag.ListaTipoDocumento = util.DropDownTipoDocumento();
+                return View();
             }
         }
     }

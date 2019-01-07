@@ -1,0 +1,74 @@
+﻿@model SDRK.COPRODA.Modelo.Direccion
+@{
+    ViewBag.Title = "Crear Cliente";
+}
+<h2>Editar Direccion</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="EditarDireccionForm">
+            <hr />
+            @using (Html.BeginForm("DireccionEditar", "Direccion", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NombreDireccion, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.NombreDireccion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NombreDireccion, "", new { @class = "text-danger" })
+
+                        <input type="hidden" value="@Model.IdDireccion" id="IdDireccion" name="IdDireccion" />
+                        <input type="hidden" value="@Model.IdCliente" id="IdCliente" name="IdCliente" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Calle1, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Calle1, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Calle1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Calle2, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Calle2, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Calle2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Distrito, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Distrito, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Distrito, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Departamento, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Departamento, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Departamento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Provincia, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Provincia, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Provincia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstadoDireccion, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.EstadoDireccion, new SelectList(ViewBag.EstadoDireccion, "Value", "Text"),new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EstadoDireccion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Modificar" class="btn btn-default" />
+                        <div class="btn btn-default" onclick="history.go(-1)">Cancelar</div>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>

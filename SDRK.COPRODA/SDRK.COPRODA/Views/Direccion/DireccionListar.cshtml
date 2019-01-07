@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SDRK.COPRODA.Modelo.Direccion>
+@using SDRK.COPRODA.Modelo
+
+<br /><br />
+<div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nombre de Direccion</th>
+                <th>Calles</th>
+                <th>Distrito</th>
+                <th>Departamento</th>
+                <th>Provincia</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (SDRK.COPRODA.Modelo.Direccion direccion in Model)
+                {
+                    <tr>
+                        <td><a href="@Url.Action("DireccionEditar", "Direccion", new { IdDireccion = direccion.IdDireccion ,mensajeError = ""})">@direccion.NombreDireccion</a></td>
+                        <td>@direccion.Calle1 @direccion.Calle2</td>
+                        <td>@direccion.Distrito</td>
+                        <td>@direccion.Departamento</td>
+                        <td>@direccion.Provincia</td>
+                        <td>@direccion.EstadoDireccion</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Nombre de Direccion</th>
+                <th>Calles</th>
+                <th>Distrito</th>
+                <th>Departamento</th>
+                <th>Provincia</th>
+                <th>Estado</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

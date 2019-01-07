@@ -37,10 +37,20 @@ namespace SDRK.COPRODA.Logica
             return adCliente.TipoClienteLeer();
         }
 
-        public List<Direccion> DireccionLeer(int IdCliente)
+        public List<Direccion> DireccionLeer(int idDireccion, int IdCliente)
         {
-            return adCliente.DireccionLeer(IdCliente);
+            return adCliente.DireccionLeer(idDireccion,IdCliente);
         }
+
+        public string DireccionCrear(Direccion direccion)
+        {
+            return adCliente.DireccionCrear(direccion);
         }
+
+        public string DireccionEditar(Direccion direccion)
+        {
+            return adCliente.DireccionEditar(direccion);
+        }
+    }
 }
 

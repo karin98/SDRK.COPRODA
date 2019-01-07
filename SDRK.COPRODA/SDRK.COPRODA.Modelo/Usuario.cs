@@ -36,12 +36,10 @@ namespace SDRK.COPRODA.Modelo
 
         [Display(Name = "Usuario")]
         [Required(ErrorMessage = "El Campo es obligatorio.")]
-        [StringLength(20, ErrorMessage = "Name can be no larger than 30 characters")]
         public string UsuarioCD { get; set; } //Usuario Coproda
 
         [Display(Name = "Contraseña")]
         [Required]
-        [StringLength(50, ErrorMessage = "Name can be no larger than 30 characters")]
         public string ClaveAcceso { get; set; }
 
         [Display(Name = "Estado")]
@@ -53,7 +51,6 @@ namespace SDRK.COPRODA.Modelo
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCreacion { get; set; }
-
         public string ModificadoPor { get; set; }
 
         [DataType(DataType.Date)]

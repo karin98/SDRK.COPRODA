@@ -1,8 +1,11 @@
 ﻿<ul class="nav navbar-nav navbar-right">
     @if (Session["TipoUsuario"].ToString() != "")
     {
-        <li>@Html.ActionLink("Crear Usuario", "CrearUsuario", "Usuario")</li>
-        @*<li>@Html.Label(Session["NombreUsuario"].ToString())</li>*@
+        if (Session["TipoUsuario"].ToString() == "Administrador")
+        {
+            <li>@Html.ActionLink("Crear Usuario", "CrearUsuario", "Usuario")</li>
+            @*<li>@Html.Label(Session["NombreUsuario"].ToString())</li>*@
+        }
         <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
     }
     else
@@ -10,4 +13,3 @@
         <li>@Html.ActionLink("Iniciar Sesion", "Index", "Home")</li>
     }
 </ul>
-

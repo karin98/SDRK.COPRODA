@@ -224,7 +224,7 @@ namespace SDRK.COPRODA.Datos
             return tipoDocumentos;
         }
 
-        public List<Direccion> DireccionLeer(int IdCliente) 
+        public List<Direccion> DireccionLeer(int idDireccion, int IdCliente)
         {
             List<Direccion> direcciones = new List<Direccion>();
 
@@ -232,9 +232,10 @@ namespace SDRK.COPRODA.Datos
             {
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "sp_DireccionLeer"; 
+                cmd.CommandText = "sp_DireccionLeer";
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
+                cmd.Parameters.AddWithValue("pIdDireccion", idDireccion);
                 cmd.Parameters.AddWithValue("pIdCliente", IdCliente);
                 cmd.ExecuteNonQuery();
 
@@ -248,6 +249,16 @@ namespace SDRK.COPRODA.Datos
                     Direccion direccion = new Direccion();
                     direccion.IdDireccion = Funciones.ToInt(dt.Rows[n]["IdDireccion"]);
                     direccion.NombreDireccion = Funciones.ToString(dt.Rows[n]["NombreDireccion"]);
+                    direccion.Calle1 = Funciones.ToString(dt.Rows[n]["Calle1"]);
+                    direccion.Calle2 = Funciones.ToString(dt.Rows[n]["Calle2"]);
+                    direccion.Distrito = Funciones.ToString(dt.Rows[n]["Distrito"]);
+                    direccion.Departamento = Funciones.ToString(dt.Rows[n]["Departamento"]);
+                    direccion.Provincia = Funciones.ToString(dt.Rows[n]["Provincia"]);
+                    direccion.EstadoDireccion = Funciones.ToString(dt.Rows[n]["EstadoDireccion"]);
+                    direccion.CreadoPor = Funciones.ToString(dt.Rows[n]["CreadoPor"]);
+                    direccion.FechaCreacion = Funciones.ToDateTime(dt.Rows[n]["FechaCreacion"]);
+                    direccion.ModificadoPor = Funciones.ToString(dt.Rows[n]["ModificadoPor"]);
+                    direccion.FechaModificacion = Funciones.ToDateTime(dt.Rows[n]["FechaModificacion"]);
 
                     //Demas datos de direccion
 
@@ -265,6 +276,73 @@ namespace SDRK.COPRODA.Datos
             catch (Exception ex) { }
 
             return direcciones;
+        }
+
+        public string DireccionCrear(Direccion direccion)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_DireccionCrear"; //Crear Procedimiento
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+
+                cmd.Parameters.AddWithValue("pIdCliente", direccion.IdCliente);
+                cmd.Parameters.AddWithValue("pNombreDireccion", direccion.NombreDireccion);
+                cmd.Parameters.AddWithValue("pCalle1", direccion.Calle1);
+                cmd.Parameters.AddWithValue("pCalle2", direccion.Calle2);
+                cmd.Parameters.AddWithValue("pDistrito", direccion.Distrito);
+                cmd.Parameters.AddWithValue("pDepartamento", direccion.Departamento);
+                cmd.Parameters.AddWithValue("pProvincia", direccion.Provincia);
+                cmd.Parameters.AddWithValue("pEstadoDireccion", direccion.EstadoDireccion);
+                cmd.Parameters.AddWithValue("pCreadoPor", direccion.CreadoPor);
+                cmd.Parameters.AddWithValue("pFechaCreacion", direccion.FechaCreacion);
+
+                cmd.ExecuteNonQuery();
+                cnn.Desconectar();
+
+                return "";
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+                return "Error al crear la direccion";
+            }
+        }
+
+        public string DireccionEditar(Direccion direccion)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_DireccionEditar"; //Crear Procedimiento
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+
+                cmd.Parameters.AddWithValue("pIdDireccion", direccion.IdDireccion);
+                cmd.Parameters.AddWithValue("pIdCliente", direccion.IdCliente);
+                cmd.Parameters.AddWithValue("pNombreDireccion", direccion.NombreDireccion);
+                cmd.Parameters.AddWithValue("pCalle1", direccion.Calle1);
+                cmd.Parameters.AddWithValue("pCalle2", direccion.Calle2);
+                cmd.Parameters.AddWithValue("pDistrito", direccion.Distrito);
+                cmd.Parameters.AddWithValue("pDepartamento", direccion.Departamento);
+                cmd.Parameters.AddWithValue("pProvincia", direccion.Provincia);
+                cmd.Parameters.AddWithValue("pEstadoDireccion", direccion.EstadoDireccion);
+                cmd.Parameters.AddWithValue("pModificadoPor", direccion.ModificadoPor);
+                cmd.Parameters.AddWithValue("pFechaModificacion", direccion.FechaModificacion);
+
+                cmd.ExecuteNonQuery();
+                cnn.Desconectar();
+
+                return "";
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+                return "Error al editar la direccion";
+            }
         }
     }
 }

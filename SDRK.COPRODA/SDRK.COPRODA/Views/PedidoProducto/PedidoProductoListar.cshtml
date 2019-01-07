@@ -23,7 +23,7 @@
                         <td>@pedidoProducto.UnidadMedida</td>
                         <td>@pedidoProducto.PrecioUnidadMedida</td>
                         <td>@pedidoProducto.CantidadEntregada</td>
-                        <td>@Html.ActionLink("Quitar", "PedidoProductoEliminar", "PedidoProducto", new { IdPedido = pedidoProducto.IdPedido, IdPedidoProducto = pedidoProducto.IdPedidoProducto })</td>
+                        <td><a href="@Url.Action("PedidoProductoEliminar", "PedidoProducto", new { IdPedido = @pedidoProducto.IdPedido, IdPedidoProducto = @pedidoProducto.IdPedidoProducto })">Quitar</a></td>
                     </tr>
                 }
             }

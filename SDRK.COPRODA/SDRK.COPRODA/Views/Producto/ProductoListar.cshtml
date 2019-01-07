@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SDRK.COPRODA.Modelo.Producto>
+@using SDRK.COPRODA.Modelo
+<div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Marca</th>
+                <th>Presentacion</th>
+                <th>Unidad de Medida</th>
+                <th>Precio</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (SDRK.COPRODA.Modelo.Producto producto in Model)
+                {
+                    <tr>
+                        <td>@producto.Nombre</td>
+                        <td>@producto.Descripcion</td>
+                        <td>@producto.Marca</td>
+                        <td>@producto.Presentacion</td>
+                        <td>@producto.UnidadMedida</td>
+                        <td>@producto.PrecioUnidadMedida</td>
+                        <td>@producto.Estado</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Marca</th>
+                <th>Presentacion</th>
+                <th>Unidad de Medida</th>
+                <th>Precio</th>
+                <th>Estado</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

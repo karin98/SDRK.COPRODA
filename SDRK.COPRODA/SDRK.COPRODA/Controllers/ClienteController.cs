@@ -58,6 +58,46 @@ namespace SDRK.COPRODA.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult ClienteEditar(Cliente cliente, string mensajeError)
+        {
+            cliente = lnCliente.ClienteLeer(cliente.IdCliente).First();
+
+            ViewBag.TipoDocumento = util.DropDownTipoDocumento();
+            ViewBag.EstadoCliente = util.DropDownListaEstados();
+            ViewBag.TipoCliente = util.DropDownTipoCliente();
+
+            return View(cliente);
+        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult ClienteEditar(Cliente cliente)
+        {
+            if (ModelState.IsValid)
+            {
+                string Respuesta = "";
+                cliente.ModificadoPor = Session["Usuario"].ToString();
+                cliente.FechaModificacion = DateTime.Now;
+
+                Respuesta = lnCliente.ClienteEditar(cliente);
+
+                if (Respuesta == "")
+                    return RedirectToAction("ClienteEditar", "Cliente", new { IdCliente = cliente.IdCliente, mensajeError = Respuesta });
+                else
+                {
+                    ViewBag.MensajeUsuarioCrear = Respuesta;
+                    return RedirectToAction("ClienteEditar", "Cliente", new { IdCliente = cliente.IdCliente, mensajeError = Respuesta });
+                }
+            }
+            else
+            {
+                ViewBag.TipoDocumento = util.DropDownTipoDocumento();
+                ViewBag.EstadoCliente = util.DropDownListaEstados();
+                ViewBag.TipoCliente = util.DropDownTipoCliente();
+                return View();
+            }
+
+        }
+
 
         public PartialViewResult ClienteListar(int IdCliente)
         {

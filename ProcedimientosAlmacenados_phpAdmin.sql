@@ -309,8 +309,7 @@ BEGIN
 			P.FechaModificacion
 		FROM Pedido P
         inner join Cliente C on P.IdCliente=C.IdCliente
-        inner join Direccion D on P.IdDireccionEntrega= D.IdDireccion
-        order by P.IdPedido desc;
+        inner join Direccion D on P.IdDireccionEntrega= D.IdDireccion;
 	ELSE
 		SELECT IdPedido,
 			NumeroPedido,
@@ -407,6 +406,7 @@ END$
                         
 delimiter $
 CREATE PROCEDURE sp_ClienteEditar (
+    in pIdCliente int,
 	IN pIdTipoCliente VARCHAR(6),
 	IN pNombre VARCHAR(50),
 	IN pApellido VARCHAR(50),
@@ -418,8 +418,8 @@ CREATE PROCEDURE sp_ClienteEditar (
 	IN pCelular VARCHAR(10),
 	IN pEmail VARCHAR(100),
 	IN pEstadoCliente VARCHAR(20),
-	IN pCreadoPor VARCHAR(15),
-	IN pFechaCreacion DATETIME
+	IN pModificadoPor VARCHAR(15),
+	IN pFechaModificacion DATETIME
 	)
 BEGIN
 	UPDATE Cliente
@@ -434,9 +434,9 @@ BEGIN
 		Celular = pCelular,
 		Email = pEmail,
 		EstadoCliente = pEstadoCliente,
-		CreadoPor = pCreadoPor,
-		FechaCreacion = pFechaCreacion
-	WHERE IdPedido = pIdPedido;
+		ModificadoPor = pModificadoPor,
+		FechaModificacion = pFechaModificacion
+	WHERE IdCliente = pIdCliente;
 end$
                             
 	/*---CREAR----*/
@@ -481,10 +481,10 @@ END$
 	-- DIRECCION PROCEDIMIENTO
 	/*---LEER-*/
 delimiter $
-CREATE PROCEDURE sp_DireccionLeer (in pIdCliente int)
+CREATE PROCEDURE sp_DireccionLeer (in pIdDireccion int,in pIdCliente int)
 BEGIN
-IF pIdCliente IS NULL
-		OR pIdCliente = 0 then
+IF (pIdCliente IS NULL
+		OR pIdCliente = 0)and (pIdDireccion = 0) then
      SELECT IdDireccion,
 		IdCliente,
 		NombreDireccion,
@@ -499,7 +499,23 @@ IF pIdCliente IS NULL
 		ModificadoPor,
 		FechaModificacion
 	FROM Direccion;   
-        else 
+        elseif(pIdCliente != 0)and (pIdDireccion = 0) then
+           SELECT IdDireccion,
+		IdCliente,
+		NombreDireccion,
+		Calle1,
+		Calle2,
+		Distrito,
+		Departamento,
+		Provincia,
+		EstadoDireccion,
+		CreadoPor,
+		FechaCreacion,
+		ModificadoPor,
+		FechaModificacion
+	FROM Direccion
+    where IdCliente = pIdCliente;  
+     elseif(pIdDireccion != 0) then
 	SELECT IdDireccion,
 		IdCliente,
 		NombreDireccion,
@@ -514,14 +530,14 @@ IF pIdCliente IS NULL
 		ModificadoPor,
 		FechaModificacion
 	FROM Direccion
-    where IdCliente = pIdCliente;
+    where IdDireccion=pIdDireccion;
     end if;
 END$
                                     
 	/*---EDITA*/
 delimiter $
 CREATE PROCEDURE sp_DireccionEditar (
-	IN pIdCliente INT,
+	in pIdDireccion int,
 	IN pNombreDireccion VARCHAR(50),
 	IN pCalle1 VARCHAR(50),
 	IN pCalle2 VARCHAR(50),
@@ -529,8 +545,8 @@ CREATE PROCEDURE sp_DireccionEditar (
 	IN pDepartamento VARCHAR(50),
 	IN pProvincia VARCHAR(50),
 	IN pEstadoDireccion VARCHAR(20),
-	IN pCreadoPor VARCHAR(15),
-	IN pFechaCreacion DATETIME
+	IN pModificadoPor VARCHAR(15),
+	IN pFechaModificacion DATETIME
 	)
 
 BEGIN
@@ -542,38 +558,38 @@ BEGIN
 		Departamento = pDepartamento,
 		Provincia = pProvincia,
 		EstadoDireccion = pEstadoDireccion,
-		CreadoPor = pCreadoPor,
-		FechaCreacion = pFechaCreacion
-	WHERE IdCliente = pIdCliente;
+		ModificadoPor = pModificadoPor,
+		FechaModificacion = pFechaModificacion
+	WHERE IdDireccion = pIdDireccion;
 end$ 
                                         
 delimiter $
 CREATE PROCEDURE sp_DireccionCrear (
-	IN IdCliente INT,
-	IN NombreDireccion VARCHAR(50),
-	IN Calle1 VARCHAR(50),
-	IN Calle2 VARCHAR(50),
-	IN Distrito VARCHAR(50),
-	IN Departamento VARCHAR(50),
-	IN Provincia VARCHAR(50),
-	IN EstadoDireccion VARCHAR(20),
-	IN CreadoPor VARCHAR(15),
-	IN FechaCreacion DATETIME
+	IN pIdCliente INT,
+	IN pNombreDireccion VARCHAR(50),
+	IN pCalle1 VARCHAR(50),
+	IN pCalle2 VARCHAR(50),
+	IN pDistrito VARCHAR(50),
+	IN pDepartamento VARCHAR(50),
+	IN pProvincia VARCHAR(50),
+	IN pEstadoDireccion VARCHAR(20),
+	IN pCreadoPor VARCHAR(15),
+	IN pFechaCreacion DATETIME
 	)
 BEGIN
 	INSERT INTO Direccion
 	VALUES (
 		NULL,
-		IdCliente,
-		NombreDireccion,
-		Calle1,
-		Calle2,
-		Distrito,
-		Departamento,
-		Provincia,
-		EstadoDireccion,
-		CreadoPor,
-		FechaCreacion,
+		pIdCliente,
+		pNombreDireccion,
+		pCalle1,
+		pCalle2,
+		pDistrito,
+		pDepartamento,
+		pProvincia,
+		pEstadoDireccion,
+		pCreadoPor,
+		pFechaCreacion,
 		NULL,
 		NULL
 		);
@@ -582,11 +598,11 @@ END$
 /*PEDIDO PRODUCTO PROC  */
 /*---ELIMINAR----*/
 delimiter $
-CREATE PROCEDURE sp_PedidoProductoEliminar (pIdPedidoProducto INT)
+CREATE PROCEDURE sp_PedidoProductoEliminar (in pIdPedido int ,in pIdPedidoProducto INT)
 BEGIN
 	DELETE
 	FROM PedidoProducto
-	WHERE IdPedidoProducto = pIdPedidoProducto;
+	WHERE IdPedido= pIdPedido and IdPedidoProducto = pIdPedidoProducto;
 end$
                                                 
 /*---LEER----*/

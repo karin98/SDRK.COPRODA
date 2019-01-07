@@ -56,6 +56,7 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12">
                         <input type="submit" value="Modificar" class="btn btn-default" />
+                        <div class="btn btn-default" onclick="history.go(-1)">Cancelar</div>
                     </div>
                 </div>
 
@@ -70,6 +71,7 @@
         <div class="btn btn-default" onclick="anadir(@Model.IdPedido)">
             Añadir Producto
         </div>
+        <div class="btn btn-default" onclick="history.go(-1)">Cancelar</div>
     </div>
 }
 <br/>

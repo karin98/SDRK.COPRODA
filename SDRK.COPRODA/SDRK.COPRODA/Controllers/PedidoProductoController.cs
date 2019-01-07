@@ -33,26 +33,35 @@ namespace SDRK.COPRODA.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult PedidoProductoCrear(PedidoProducto pedidoProducto)
         {
-            string respuesta = "";
-            Producto producto = lnProducto.ProductoLeer(pedidoProducto.IdProducto).First();
-            pedidoProducto.UnidadMedida = producto.UnidadMedida;
-            pedidoProducto.PrecioUnidadMedida = producto.PrecioUnidadMedida;
-            pedidoProducto.UnidadCompra = producto.UnidadCompra;
-            pedidoProducto.PrecioUnidadCompra = producto.PrecioUnidadCompra;
-            pedidoProducto.CantidadEntregada = 0;
-            pedidoProducto.CreadoPor = Session["Usuario"].ToString();
-            pedidoProducto.FechaCreacion = DateTime.Now;
-
-            respuesta = lnPedidoProducto.PedidoProductoCrear(pedidoProducto);
-
-            ViewBag.ListaProducto = util.DropDownProducto();
-            if (respuesta == "")
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("PedidoEditar", "Pedido", new { IdPedido = pedidoProducto.IdPedido });
+                string respuesta = "";
+                Producto producto = lnProducto.ProductoLeer(pedidoProducto.IdProducto).First();
+                pedidoProducto.UnidadMedida = producto.UnidadMedida;
+                pedidoProducto.PrecioUnidadMedida = producto.PrecioUnidadMedida;
+                pedidoProducto.UnidadCompra = producto.UnidadCompra;
+                pedidoProducto.PrecioUnidadCompra = producto.PrecioUnidadCompra;
+                pedidoProducto.CantidadEntregada = 0;
+                pedidoProducto.CreadoPor = Session["Usuario"].ToString();
+                pedidoProducto.FechaCreacion = DateTime.Now;
+
+                respuesta = lnPedidoProducto.PedidoProductoCrear(pedidoProducto);
+
+                ViewBag.ListaProducto = util.DropDownProducto();
+                if (respuesta == "")
+                {
+                    return RedirectToAction("PedidoEditar", "Pedido", new { IdPedido = pedidoProducto.IdPedido });
+                }
+                else
+                {
+                    return RedirectToAction("PedidoProductoCrear", "PedidoProducto", new { pedidoProducto = pedidoProducto, mensajeError = respuesta });
+                }
             }
             else
             {
-                return RedirectToAction("PedidoProductoCrear", "PedidoProducto", new { pedidoProducto = pedidoProducto, mensajeError = respuesta });
+                ViewBag.IdPedido = pedidoProducto.IdPedido;
+                ViewBag.ListaProducto = util.DropDownProducto();
+                return View();
             }
         }
 

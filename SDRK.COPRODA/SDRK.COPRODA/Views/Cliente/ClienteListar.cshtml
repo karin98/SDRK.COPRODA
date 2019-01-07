@@ -20,7 +20,7 @@
                 {
                     <tr>
                         @* <td><a href="@Url.Action("PedidoEditar", new { idPedido = pedido.IdPedido, origen = "Pedidos" })">@pedido.IdPedido</a></td>*@
-                        <td>@Html.ActionLink(cliente.Nombre + " " + cliente.Apellido, "ClienteEditar", "Cliente", new { IdCliente = cliente.IdCliente })</td>
+                        <td><a href="@Url.Action("ClienteEditar", "Cliente", new { IdCliente = cliente.IdCliente })">@cliente.Nombre @cliente.Apellido</a></td>
                         <td>@cliente.IdTipoCliente</td>
                         <td>@cliente.DocumentoIdentidad</td>
                         <td>@cliente.RazonSocial</td>
