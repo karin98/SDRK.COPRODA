@@ -217,11 +217,13 @@
     <Compile Include="Common\Util.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\DireccionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\PedidoProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -303,9 +305,17 @@
     <Content Include="Views\Cliente\ClienteCrear.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Pedido\PedidoListar.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Cliente\ClienteListar.cshtml" />
+    <Content Include="Views\PedidoProducto\PedidoProductoListar.cshtml" />
+    <Content Include="Views\Pedido\PedidoEditar.cshtml" />
+    <Content Include="Views\Pedido\PedidoCrear.cshtml" />
+    <Content Include="Views\Pedido\Index.cshtml" />
+    <Content Include="Views\PedidoProducto\PedidoProductoCrear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Direccion\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

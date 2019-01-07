@@ -11,6 +11,7 @@ namespace SDRK.COPRODA.Modelo
         public int IdPedidoProducto { get; set; }
         public int IdPedido { get; set; }
         public int IdProducto { get; set; }
+        public string Nombre { get; set; }
         public decimal Cantidad { get; set; }
         public string UnidadMedida { get; set; }
         public decimal PrecioUnidadMedida { get; set; }

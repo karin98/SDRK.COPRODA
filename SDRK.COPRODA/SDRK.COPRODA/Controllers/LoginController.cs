@@ -34,6 +34,7 @@ namespace SDRK.COPRODA.Controllers
                 if (usuario.UsuarioCD == usuario.UsuarioCD && usuario.ClaveAcceso == usuario.ClaveAcceso)
                 {
                     Session["Login"] = true;
+                    Session["IdUsuario"] = usuarioDatos.IdUsuario;
                     Session["NombreUsuario"] = usuarioDatos.Nombre;
                     Session["ApellidoUsuario"] = usuarioDatos.Apellido;
                     Session["TipoUsuario"] = usuarioDatos.TipoUsuario;

@@ -2,8 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Bienvenido @Session["NombreUsuario"].ToString() @Session["ApellidoUsuario"].ToString()</h2>
+<h3>Bienvenido @Session["NombreUsuario"].ToString() @Session["ApellidoUsuario"].ToString()</h3>
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
@@ -13,6 +12,10 @@
         <input type="submit" value="Ver Usuarios" class="btn btn-default" />
     </div>
 </div>
+
+<br />
+<br />
+
 <div id="divPedidoListar">
-    @Html.Action("PedidoListar","Pedido", new { IdPedido = 0 })
+    @Html.Action("PedidoListar", "Pedido", new { IdPedido = 0 })
 </div>

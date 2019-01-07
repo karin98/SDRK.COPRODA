@@ -14,7 +14,7 @@ namespace SDRK.COPRODA.Datos
         ADConexion cnn = new ADConexion();
 
 
-        public List<Cliente> ClienteLeer()
+        public List<Cliente> ClienteLeer(int idCliente)
         {
             List<Cliente> clientes = new List<Cliente>();
 
@@ -26,6 +26,7 @@ namespace SDRK.COPRODA.Datos
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
 
+                cmd.Parameters.AddWithValue("pIdCliente", idCliente);
                 cmd.ExecuteNonQuery();
 
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -75,6 +76,7 @@ namespace SDRK.COPRODA.Datos
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "sp_ClienteCrear";
+                cmd.Connection = cnn.cn;
                 cnn.Conectar();
 
                 cmd.Parameters.AddWithValue("pIdTipoCliente", cliente.IdTipoCliente);
@@ -86,8 +88,8 @@ namespace SDRK.COPRODA.Datos
                 cmd.Parameters.AddWithValue("pRUC", cliente.RUC);
                 cmd.Parameters.AddWithValue("pTelefono", cliente.Telefono);
                 cmd.Parameters.AddWithValue("pCelular", cliente.Celular);
-                cmd.Parameters.AddWithValue("pEmail", cliente.CreadoPor);
-                cmd.Parameters.AddWithValue("pEstadoCliente", cliente.FechaCreacion);
+                cmd.Parameters.AddWithValue("pEmail", cliente.Email);
+                cmd.Parameters.AddWithValue("pEstadoCliente", cliente.EstadoCliente);
                 cmd.Parameters.AddWithValue("pCreadoPor", cliente.CreadoPor);
                 cmd.Parameters.AddWithValue("pFechaCreacion", cliente.FechaCreacion);
 
@@ -123,8 +125,8 @@ namespace SDRK.COPRODA.Datos
                 cmd.Parameters.AddWithValue("pRUC", cliente.RUC);
                 cmd.Parameters.AddWithValue("pTelefono", cliente.Telefono);
                 cmd.Parameters.AddWithValue("pCelular", cliente.Celular);
-                cmd.Parameters.AddWithValue("pEmail", cliente.CreadoPor);
-                cmd.Parameters.AddWithValue("pEstadoCliente", cliente.FechaCreacion);
+                cmd.Parameters.AddWithValue("pEmail", cliente.Email);
+                cmd.Parameters.AddWithValue("pEstadoCliente", cliente.EstadoCliente);
                 cmd.Parameters.AddWithValue("pModificadoPor", cliente.ModificadoPor);
                 cmd.Parameters.AddWithValue("pFechaModificacion", cliente.FechaModificacion);
 
@@ -164,7 +166,7 @@ namespace SDRK.COPRODA.Datos
                     TipoCliente tipoCliente = new TipoCliente();
                     tipoCliente.IdTipoCliente = Funciones.ToString(dt.Rows[n]["IdTipoCliente"]);
                     tipoCliente.TipoClienteValor = Funciones.ToString(dt.Rows[n]["TipoCliente"]);
-                    tipoCliente.Descripcion = Funciones.ToString(dt.Rows[n]["Decripcion"]);
+                    tipoCliente.Descripcion = Funciones.ToString(dt.Rows[n]["Descripcion"]);
                     tipoClientes.Add(tipoCliente);
                 }
             }
@@ -205,7 +207,7 @@ namespace SDRK.COPRODA.Datos
                     TipoDocumento tipoDocumento = new TipoDocumento();
                     tipoDocumento.IdTipoDocumento = Funciones.ToString(dt.Rows[n]["IdTipoDocumento"]);
                     tipoDocumento.TipoDocumentoValor = Funciones.ToString(dt.Rows[n]["TipoDocumento"]);
-                    tipoDocumento.Descripcion = Funciones.ToString(dt.Rows[n]["Decripcion"]);
+                    tipoDocumento.Descripcion = Funciones.ToString(dt.Rows[n]["Descripcion"]);
                     tipoDocumentos.Add(tipoDocumento);
                 }
             }
@@ -220,6 +222,49 @@ namespace SDRK.COPRODA.Datos
             catch (Exception ex) { }
 
             return tipoDocumentos;
+        }
+
+        public List<Direccion> DireccionLeer(int IdCliente) 
+        {
+            List<Direccion> direcciones = new List<Direccion>();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_DireccionLeer"; 
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+                cmd.Parameters.AddWithValue("pIdCliente", IdCliente);
+                cmd.ExecuteNonQuery();
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                for (int n = 0; n < dt.Rows.Count; n++)
+                {
+                    Direccion direccion = new Direccion();
+                    direccion.IdDireccion = Funciones.ToInt(dt.Rows[n]["IdDireccion"]);
+                    direccion.NombreDireccion = Funciones.ToString(dt.Rows[n]["NombreDireccion"]);
+
+                    //Demas datos de direccion
+
+                    direcciones.Add(direccion);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+            }
+            try
+            {
+                cnn.Desconectar();
+            }
+            catch (Exception ex) { }
+
+            return direcciones;
         }
     }
 }

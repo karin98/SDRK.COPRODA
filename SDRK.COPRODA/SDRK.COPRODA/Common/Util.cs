@@ -12,6 +12,7 @@ namespace SDRK.COPRODA.Common
     {
         LNPedido lnPedido = new LNPedido();
         LNCliente lnCliente = new LNCliente();
+        LNProducto lnProducto = new LNProducto();
 
         public List<SelectListItem> DropDownListaEstados()
         {
@@ -31,6 +32,47 @@ namespace SDRK.COPRODA.Common
             return listItemsResultado;
         }
 
+        public List<SelectListItem> DropDownListaTipoEntrega()
+        {
+            List<SelectListItem> listItemsResultado = new List<SelectListItem>();
+
+            SelectListItem itemDomicilio = new SelectListItem();
+            itemDomicilio.Text = "Domicilio";
+            itemDomicilio.Value = "Domicilio";
+
+            SelectListItem itemOficina = new SelectListItem();
+            itemOficina.Text = "Oficina";
+            itemOficina.Value = "Oficina";
+
+            listItemsResultado.Add(itemDomicilio);
+            listItemsResultado.Add(itemOficina);
+
+            return listItemsResultado;
+        }
+
+        public List<SelectListItem> DropDownListaEstadoPedido()
+        {
+            List<SelectListItem> listItemsResultado = new List<SelectListItem>();
+
+            SelectListItem itemBorrador = new SelectListItem();
+            itemBorrador.Text = "Borrador";
+            itemBorrador.Value = "Borrador";
+
+            SelectListItem itemEntregado = new SelectListItem();
+            itemEntregado.Text = "Entregado";
+            itemEntregado.Value = "Entregado";
+
+            SelectListItem itemSolicitado = new SelectListItem();
+            itemSolicitado.Text = "Solicitado";
+            itemSolicitado.Value = "Solicitado";
+
+            listItemsResultado.Add(itemBorrador);
+            listItemsResultado.Add(itemEntregado);
+            listItemsResultado.Add(itemSolicitado);
+
+            return listItemsResultado;
+        }
+
         public List<SelectListItem> DropDownTipoUsuario()
         {
             List<SelectListItem> listItemsResultado = new List<SelectListItem>();
@@ -46,6 +88,21 @@ namespace SDRK.COPRODA.Common
             listItemsResultado.Add(itemAdministrador);
             listItemsResultado.Add(itemVendedor);
 
+            return listItemsResultado;
+        }
+
+        public List<SelectListItem> DropDownListaCliente()
+        {
+            List<Cliente> origenDatos = lnCliente.ClienteLeer(0);
+            List<SelectListItem> listItemsResultado = new List<SelectListItem>();
+
+            foreach (Cliente cliente in origenDatos)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = cliente.Apellido + " " + cliente.Nombre;
+                item.Value = cliente.IdCliente.ToString();
+                listItemsResultado.Add(item);
+            }
             return listItemsResultado;
         }
 
@@ -74,6 +131,51 @@ namespace SDRK.COPRODA.Common
                 SelectListItem item = new SelectListItem();
                 item.Text = tipoDocumento.TipoDocumentoValor;
                 item.Value = tipoDocumento.IdTipoDocumento;
+                listItemsResultado.Add(item);
+            }
+            return listItemsResultado;
+        }
+
+        public List<SelectListItem> DropDownDireccion(int IdCliente)
+        {
+            List<Direccion> origenDatos = lnCliente.DireccionLeer(IdCliente);
+            List<SelectListItem> listItemsResultado = new List<SelectListItem>();
+
+            foreach (Direccion direccion in origenDatos)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = direccion.NombreDireccion;
+                item.Value = direccion.IdDireccion.ToString();
+                listItemsResultado.Add(item);
+            }
+            return listItemsResultado;
+        }
+
+        public List<SelectListItem> DropDownTipoCliente()
+        {
+            List<TipoCliente> origenDatos = lnCliente.TipoClienteLeer();
+            List<SelectListItem> listItemsResultado = new List<SelectListItem>();
+
+            foreach (TipoCliente tipoCliente in origenDatos)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = tipoCliente.TipoClienteValor;
+                item.Value = tipoCliente.IdTipoCliente;
+                listItemsResultado.Add(item);
+            }
+            return listItemsResultado;
+        }
+
+        public List<SelectListItem> DropDownProducto()
+        {
+            List<Producto> origenDatos = lnProducto.ProductoLeer(0);
+            List<SelectListItem> listItemsResultado = new List<SelectListItem>();
+
+            foreach (Producto producto in origenDatos)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Text = producto.Nombre;
+                item.Value = producto.IdProducto.ToString();
                 listItemsResultado.Add(item);
             }
             return listItemsResultado;

@@ -7,7 +7,11 @@
     <title>COPRODA</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <!-- jQuery UI CSS Reference -->
+    <link href="@Url.Content("~/Content/themes/base/minified/jquery-ui.min.css")" rel="stylesheet" />
+    <!-- Required jQuery and jQuery UI Javascript references -->
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,11 +27,11 @@
             <div class="navbar-collapse collapse">
                 @if (Session["TipoUsuario"].ToString() != "")
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    </ul>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Pedidos", "Index", "Pedido")</li>
+                    <li>@Html.ActionLink("Clienes", "Index", "Cliente")</li>
+                    <li>@Html.ActionLink("Productos", "Index", "Producto")</li>
+                </ul>
                 }
                 @Html.Partial("_LoginPartial")
             </div>
@@ -37,23 +41,18 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - COPRODA</p>
+            <p>&copy; @DateTime.Now.Year - COPRODA Beta</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
-
         <script type="text/javascript">
             if (!Modernizr.inputtypes.date) {
                 $(function () {
-
                     $(".datecontrol").datepicker();
-
                 });
             }
         </script>

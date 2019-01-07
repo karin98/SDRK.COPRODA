@@ -1,0 +1,44 @@
+﻿@model SDRK.COPRODA.Modelo.PedidoProducto
+@{
+    ViewBag.Title = "PedidoProductoCrear";
+}
+
+<h2>Añadir Producto</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="PedidoProductoCrearForm">
+            <hr />
+            @using (Html.BeginForm("PedidoProductoCrear", "PedidoProducto", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdPedido, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.IdPedido, new { @class = "form-control", @value = @ViewBag.IdPedido, @readonly="readonly" })
+                        @Html.ValidationMessageFor(model => model.IdPedido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdProducto, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.IdProducto, new SelectList(ViewBag.ListaProducto, "Value", "Text"), "- Seleccionar -", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdProducto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cantidad, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Cantidad, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Añadir" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>

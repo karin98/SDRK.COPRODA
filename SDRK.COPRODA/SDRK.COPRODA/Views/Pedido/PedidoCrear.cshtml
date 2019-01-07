@@ -1,0 +1,63 @@
+﻿@model SDRK.COPRODA.Modelo.Pedido
+@{
+    ViewBag.Title = "Editar Pedido";
+}
+<h2>Crear Pedido</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="PedidoCrearForm">
+            <hr />
+            @using (Html.BeginForm("PedidoCrear", "Pedido", null, FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdCliente, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.IdCliente, new SelectList(ViewBag.ListaCliente, "Value", "Text"), "Seleccionar...", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdCliente, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DireccionFacturacion, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.DireccionFacturacion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DireccionFacturacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdDireccionEntrega, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.IdDireccionEntrega, new SelectList(ViewBag.ListaDirecciones, "Value", "Text"), "Seleccionar...", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdDireccionEntrega, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TipoEntrega, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.TipoEntrega, new SelectList(ViewBag.ListaTipoEntrega, "Value", "Text"), "Seleccionar...", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TipoEntrega, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.EstadoPedido, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.EstadoPedido, new SelectList(ViewBag.ListaEstadoPedido, "Value", "Text"), "Seleccionar...", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EstadoPedido, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FechaEntrega, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.FechaEntrega, new { @class = "form-control datecontrol" })
+                        @Html.ValidationMessageFor(model => model.FechaEntrega, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Registrar" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>

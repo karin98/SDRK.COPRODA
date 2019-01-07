@@ -12,9 +12,9 @@ namespace SDRK.COPRODA.Logica
     {
         ADCliente adCliente = new ADCliente();
 
-        public List<Cliente> ClienteLeer() //Agregar Parametros
+        public List<Cliente> ClienteLeer(int idCliente) //Agregar Parametros
         {
-            return adCliente.ClienteLeer();
+            return adCliente.ClienteLeer(idCliente);
         }
 
         public string ClienteCrear(Cliente cliente)
@@ -36,6 +36,11 @@ namespace SDRK.COPRODA.Logica
         {
             return adCliente.TipoClienteLeer();
         }
-    }
+
+        public List<Direccion> DireccionLeer(int IdCliente)
+        {
+            return adCliente.DireccionLeer(IdCliente);
+        }
+        }
 }
 

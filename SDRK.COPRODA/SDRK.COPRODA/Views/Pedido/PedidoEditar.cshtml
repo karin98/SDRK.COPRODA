@@ -1,0 +1,80 @@
+﻿@model SDRK.COPRODA.Modelo.Pedido
+@{
+    ViewBag.Title = "Editar Pedido";
+}
+<h2>Editar Pedido</h2>
+@using (Html.BeginForm("PedidoEditar", "Pedido", null, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="row">
+        <div class="col-md-8">
+            <section id="PedidoEditarForm">
+                <hr />
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdCliente, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        <h4>@Model.NombreCliente @Model.ApellidoCliente</h4>
+                        <input type="hidden" value="@Model.IdPedido" id="IdPedido" name="IdPedido" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DireccionFacturacion, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.DireccionFacturacion, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DireccionFacturacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdDireccionEntrega, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.IdDireccionEntrega, new SelectList(ViewBag.ListaDireccion, "Value", "Text"), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IdDireccionEntrega, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TipoEntrega, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.TipoEntrega, new SelectList(ViewBag.ListaTipoEntrega, "Value", "Text"), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TipoEntrega, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstadoPedido, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.EstadoPedido, new SelectList(ViewBag.ListaEstadoPedido, "Value", "Text"), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EstadoPedido, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FechaEntrega, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.FechaEntrega, new { @class = "form-control datecontrol" })
+                        @Html.ValidationMessageFor(model => model.FechaEntrega, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-12">
+                        <input type="submit" value="Modificar" class="btn btn-default" />
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+    <h3>@Model.TotalItems Productos ::: Total: S/.@Model.TotalPedido</h3>
+    <div id="divPedidoProductoListar">
+        @Html.Action("PedidoProductoListar", "PedidoProducto", new { IdPedido = @Model.IdPedido })
+    </div>
+    <div class="col-md-10">
+        <div class="btn btn-default" onclick="anadir(@Model.IdPedido)">
+            Añadir Producto
+        </div>
+    </div>
+}
+<br/>
+<script>
+    function anadir(idPedido) {
+        window.location.href = '@Url.Action("PedidoProductoCrear", "PedidoProducto")' + '?IdPedido=' + idPedido;
+    };
+</script>

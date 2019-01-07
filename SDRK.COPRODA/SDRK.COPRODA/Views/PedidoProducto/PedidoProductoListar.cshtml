@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SDRK.COPRODA.Modelo.PedidoProducto>
+@using SDRK.COPRODA.Modelo
+<div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Unidad de Medida</th>
+                <th>Precio</th>
+                <th>Cantidad Entregada</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (SDRK.COPRODA.Modelo.PedidoProducto pedidoProducto in Model)
+                {
+                    <tr>
+                        @* <td><a href="@Url.Action("PedidoEditar", new { idPedido = pedido.IdPedido, origen = "Pedidos" })">@pedido.IdPedido</a></td>*@
+                        <td>@pedidoProducto.Nombre</td>
+                        <td>@pedidoProducto.Cantidad</td>
+                        <td>@pedidoProducto.UnidadMedida</td>
+                        <td>@pedidoProducto.PrecioUnidadMedida</td>
+                        <td>@pedidoProducto.CantidadEntregada</td>
+                        <td>@Html.ActionLink("Quitar", "PedidoProductoEliminar", "PedidoProducto", new { IdPedido = pedidoProducto.IdPedido, IdPedidoProducto = pedidoProducto.IdPedidoProducto })</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Unidad de Medida</th>
+                <th>Precio</th>
+                <th>Cantidad Entregada</th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<br />
+
+

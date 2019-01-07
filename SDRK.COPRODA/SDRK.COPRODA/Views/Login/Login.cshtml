@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Iniciar Sesión";
 }
-
 <h2>Inicio de Sesión</h2>
 @if (Session["MensajeLogin"].ToString() != "")
 {
@@ -35,8 +34,6 @@
                         <input type="submit" value="Iniciar" class="btn btn-default" />
                     </div>
                 </div>
-                @Html.EditorFor(model => model.FechaCreacion, new { @class = "form-control datecontrol" })
-
             }
         </section>
     </div>

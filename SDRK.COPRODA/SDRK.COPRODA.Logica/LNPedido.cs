@@ -12,6 +12,21 @@ namespace SDRK.COPRODA.Logica
     {
         ADPedido adPedido = new ADPedido();
 
+        public string PedidoCrear(Pedido pedido)
+        {
+            return adPedido.PedidoCrear(pedido);
+        }
+
+        public string PedidoEditar(Pedido pedido)
+        {
+            return adPedido.PedidoEditar(pedido);
+        }
+
+        public string PedidoActualizarEstado(Pedido pedido)
+        {
+            return adPedido.PedidoActualizarEstado(pedido);
+        }
+
         public List<Pedido> PedidoLeer(int IdPedido)
         {
             return adPedido.PedidoLeer(IdPedido);
@@ -21,5 +36,5 @@ namespace SDRK.COPRODA.Logica
         {
             return adPedido.TipoTransaccionLeer();
         }
-        }
+    }
 }

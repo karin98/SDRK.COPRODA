@@ -10,7 +10,7 @@ namespace SDRK.COPRODA.Datos
 {
     public class ADConexion
     {
-        public MySqlConnection cn = new MySqlConnection(ConfigurationManager.ConnectionStrings["COPRODA_CONEXION"].ConnectionString);
+        public MySqlConnection cn = new MySqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
         public string Conexion()
         {

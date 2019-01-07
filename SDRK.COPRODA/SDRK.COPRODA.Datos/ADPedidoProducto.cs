@@ -39,6 +39,7 @@ namespace SDRK.COPRODA.Datos
                     pedidoProducto.IdPedidoProducto = Funciones.ToInt(dt.Rows[n]["IdPedidoProducto"]);
                     pedidoProducto.IdPedido = Funciones.ToInt(dt.Rows[n]["IdPedido"]);
                     pedidoProducto.IdProducto = Funciones.ToInt(dt.Rows[n]["IdProducto"]);
+                    pedidoProducto.Nombre = Funciones.ToString(dt.Rows[n]["Nombre"]);
                     pedidoProducto.Cantidad = Funciones.ToDecimal(dt.Rows[n]["Cantidad"]);
                     pedidoProducto.UnidadMedida = Funciones.ToString(dt.Rows[n]["UnidadMedida"]);
                     pedidoProducto.PrecioUnidadMedida = Funciones.ToDecimal(dt.Rows[n]["PrecioUnidadMedida"]);
@@ -49,6 +50,8 @@ namespace SDRK.COPRODA.Datos
                     pedidoProducto.FechaCreacion = Funciones.ToDateTime(dt.Rows[n]["FechaCreacion"]);
                     pedidoProducto.ModificadoPor = Funciones.ToString(dt.Rows[n]["ModificadoPor"]);
                     pedidoProducto.FechaModificacion = Funciones.ToDateTime(dt.Rows[n]["FechaModificacion"]);
+
+
                     pedidoProductos.Add(pedidoProducto);
 
                 }
@@ -73,8 +76,8 @@ namespace SDRK.COPRODA.Datos
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "sp_PedidoProductoCrear";
+                cmd.Connection = cnn.cn;
                 cnn.Conectar();
-
                 cmd.Parameters.AddWithValue("pIdPedido", pedidoProducto.IdPedido);
                 cmd.Parameters.AddWithValue("pIdProducto", pedidoProducto.IdProducto);
                 cmd.Parameters.AddWithValue("pCantidad", pedidoProducto.Cantidad);
@@ -85,7 +88,7 @@ namespace SDRK.COPRODA.Datos
                 cmd.Parameters.AddWithValue("pCantidadEntregada", pedidoProducto.CantidadEntregada);
                 cmd.Parameters.AddWithValue("pCreadoPor", pedidoProducto.CreadoPor);
                 cmd.Parameters.AddWithValue("pFechaCreacion", pedidoProducto.FechaCreacion);
-
+                
                 cmd.ExecuteNonQuery();
                 cnn.Desconectar();
 
@@ -131,5 +134,32 @@ namespace SDRK.COPRODA.Datos
                 return "Error al actualizar el PedidoProducto";
             }
         }
+
+        public string PedidoProductoEliminar(PedidoProducto pedidoProducto)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "sp_PedidoProductoEliminar";
+                cmd.Connection = cnn.cn;
+                cnn.Conectar();
+                cmd.Parameters.AddWithValue("pIdPedido", pedidoProducto.IdPedido);
+                cmd.Parameters.AddWithValue("pIdPedidoProducto", pedidoProducto.IdPedidoProducto);
+
+                cmd.ExecuteNonQuery();
+                cnn.Desconectar();
+
+                return "";
+            }
+            catch (MySqlException ex)
+            {
+                cnn.Desconectar();
+                return "Error al eliminar el pedido producto";
+            }
+        }
+
+
+        //Elimiar PedidoProducto
     }
 }

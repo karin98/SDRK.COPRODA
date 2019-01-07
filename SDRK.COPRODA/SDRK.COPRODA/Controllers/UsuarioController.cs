@@ -27,7 +27,7 @@ namespace SDRK.COPRODA.Controllers
             return View();
         }
 
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CrearUsuario(Usuario usuario)
         {
             string Respuesta = "";

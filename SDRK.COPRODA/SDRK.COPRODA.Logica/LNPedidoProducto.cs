@@ -26,5 +26,10 @@ namespace SDRK.COPRODA.Logica
         {
             return adPedidoProducto.PedidoProductoEditar(pedidoProducto);
         }
+
+        public string PedidoProductoEliminar (PedidoProducto pedidoProducto)
+        {
+            return adPedidoProducto.PedidoProductoEliminar(pedidoProducto);
+        }
     }
 }

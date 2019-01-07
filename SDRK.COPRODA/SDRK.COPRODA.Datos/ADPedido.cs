@@ -40,8 +40,11 @@ namespace SDRK.COPRODA.Datos
                     pedido.NumeroPedido = Funciones.ToString(dt.Rows[n]["NumeroPedido"]);
                     pedido.IdUsuario = Funciones.ToInt(dt.Rows[n]["IdUsuario"]);
                     pedido.IdCliente = Funciones.ToInt(dt.Rows[n]["IdCliente"]);
+                    pedido.NombreCliente = Funciones.ToString(dt.Rows[n]["Nombre"]);
+                    pedido.ApellidoCliente = Funciones.ToString(dt.Rows[n]["Apellido"]);
                     pedido.DireccionFacturacion = Funciones.ToString(dt.Rows[n]["DireccionFacturacion"]);
                     pedido.IdDireccionEntrega = Funciones.ToInt(dt.Rows[n]["IdDireccionEntrega"]);
+                    pedido.NombreDireccionEntrega = Funciones.ToString(dt.Rows[n]["NombreDireccion"]);
                     pedido.TipoEntrega = Funciones.ToString(dt.Rows[n]["TipoEntrega"]);
                     pedido.FechaEntrega = Funciones.ToDateTime(dt.Rows[n]["FechaEntrega"]);
                     pedido.EstadoPedido = Funciones.ToString(dt.Rows[n]["EstadoPedido"]);
@@ -67,7 +70,7 @@ namespace SDRK.COPRODA.Datos
             return pedidos;
         }
 
-        public string PedidoActualizarEstado(int IdPedido, string EstadoPedidoedido)
+        public string PedidoActualizarEstado(Pedido pedido)
         {
             try
             {
@@ -76,8 +79,8 @@ namespace SDRK.COPRODA.Datos
                 cmd.CommandText = "sp_PedidoActualizarEstado"; //Crear Procedimiento
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
-                cmd.Parameters.AddWithValue("pIdPedido", IdPedido);
-                cmd.Parameters.AddWithValue("pEstadoPedido", EstadoPedidoedido);
+                cmd.Parameters.AddWithValue("pIdPedido", pedido.IdPedido);
+                cmd.Parameters.AddWithValue("pEstadoPedido", pedido.EstadoPedido);
 
                 cmd.ExecuteNonQuery();
                 cnn.Desconectar();
@@ -91,7 +94,7 @@ namespace SDRK.COPRODA.Datos
             }
         }
 
-        public string PedidoCrear(int IdUsuario, int IdCliente, string DireccionFacturacion, int IdDireccionEntrega, string TipoEntrega, DateTime FechaEntrega, string EstadoPedido, string CreadoPor, DateTime FechaCreacion)
+        public string PedidoCrear(Pedido pedido)
         {
             try
             {
@@ -101,15 +104,15 @@ namespace SDRK.COPRODA.Datos
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
 
-                cmd.Parameters.AddWithValue("pIdUsuario", IdUsuario);
-                cmd.Parameters.AddWithValue("pIdCliente", IdCliente);
-                cmd.Parameters.AddWithValue("pDireccionFacturacion", DireccionFacturacion);
-                cmd.Parameters.AddWithValue("pIdDireccionEntrega", IdDireccionEntrega);
-                cmd.Parameters.AddWithValue("pTipoEntrega", TipoEntrega);
-                cmd.Parameters.AddWithValue("pFechaEntrega", FechaEntrega);
-                cmd.Parameters.AddWithValue("pEstadoPedido", EstadoPedido);
-                cmd.Parameters.AddWithValue("pCreadoPor", CreadoPor);
-                cmd.Parameters.AddWithValue("pFechaCreacion", FechaCreacion);
+                cmd.Parameters.AddWithValue("pIdUsuario", pedido.IdUsuario);
+                cmd.Parameters.AddWithValue("pIdCliente", pedido.IdCliente);
+                cmd.Parameters.AddWithValue("pDireccionFacturacion", pedido.DireccionFacturacion);
+                cmd.Parameters.AddWithValue("pIdDireccionEntrega", pedido.IdDireccionEntrega);
+                cmd.Parameters.AddWithValue("pTipoEntrega", pedido.TipoEntrega);
+                cmd.Parameters.AddWithValue("pFechaEntrega", pedido.FechaEntrega);
+                cmd.Parameters.AddWithValue("pEstadoPedido", pedido.EstadoPedido);
+                cmd.Parameters.AddWithValue("pCreadoPor", pedido.CreadoPor);
+                cmd.Parameters.AddWithValue("pFechaCreacion", pedido.FechaCreacion);
 
                 cmd.ExecuteNonQuery();
                 cnn.Desconectar();
@@ -123,7 +126,7 @@ namespace SDRK.COPRODA.Datos
             }
         }
 
-        public string PedidoEditar(string DireccionFacturacion, int IdDireccionEntrega, string TipoEntrega, DateTime FechaEntrega, string EstadoPedido, DateTime FechaCambioEstado, string ModificadoPor, DateTime FechaModificacion)
+        public string PedidoEditar(Pedido pedido)
         {
             try
             {
@@ -133,14 +136,15 @@ namespace SDRK.COPRODA.Datos
                 cmd.Connection = cnn.cn;
                 cnn.Conectar();
 
-                cmd.Parameters.AddWithValue("pDireccionFacturacion", DireccionFacturacion);
-                cmd.Parameters.AddWithValue("pIdDireccionEntrega", IdDireccionEntrega);
-                cmd.Parameters.AddWithValue("pTipoEntrega", TipoEntrega);
-                cmd.Parameters.AddWithValue("pFechaEntrega", FechaEntrega);
-                cmd.Parameters.AddWithValue("pEstadoPedido", EstadoPedido);
-                cmd.Parameters.AddWithValue("pFechaCambioEstado", FechaCambioEstado);
-                cmd.Parameters.AddWithValue("pModificadoPor", ModificadoPor);
-                cmd.Parameters.AddWithValue("pFechaModificacion", FechaModificacion);
+                cmd.Parameters.AddWithValue("pIdPedido", pedido.IdPedido);
+                cmd.Parameters.AddWithValue("pDireccionFacturacion", pedido.DireccionFacturacion);
+                cmd.Parameters.AddWithValue("pIdDireccionEntrega", pedido.IdDireccionEntrega);
+                cmd.Parameters.AddWithValue("pTipoEntrega", pedido.TipoEntrega);
+                cmd.Parameters.AddWithValue("pFechaEntrega", pedido.FechaEntrega);
+                cmd.Parameters.AddWithValue("pEstadoPedido", pedido.EstadoPedido);
+                cmd.Parameters.AddWithValue("pFechaCambioEstado", pedido.FechaCambioEstado);
+                cmd.Parameters.AddWithValue("pModificadoPor", pedido.ModificadoPor);
+                cmd.Parameters.AddWithValue("pFechaModificacion", pedido.FechaModificacion);
 
                 cmd.ExecuteNonQuery();
                 cnn.Desconectar();
@@ -178,7 +182,7 @@ namespace SDRK.COPRODA.Datos
                     TipoTransaccion tipoTransaccion = new TipoTransaccion();
                     tipoTransaccion.IdTipoTransaccion = Funciones.ToString(dt.Rows[n]["IdTipoTransaccion"]);
                     tipoTransaccion.TipoTransaccionValor = Funciones.ToString(dt.Rows[n]["TipoTransaccion"]);
-                    tipoTransaccion.Descripcion = Funciones.ToString(dt.Rows[n]["Decripcion"]);
+                    tipoTransaccion.Descripcion = Funciones.ToString(dt.Rows[n]["Descripcion"]);
                     tipoTransacciones.Add(tipoTransaccion);
                 }
             }
@@ -220,7 +224,7 @@ namespace SDRK.COPRODA.Datos
                     TipoComprobante tipoComprobante = new TipoComprobante();
                     tipoComprobante.IdTipoComprobante = Funciones.ToString(dt.Rows[n]["IdTipoComprobante"]);
                     tipoComprobante.TipoComprobanteValor = Funciones.ToString(dt.Rows[n]["TipoComprobante"]);
-                    tipoComprobante.Descripcion = Funciones.ToString(dt.Rows[n]["Decripcion"]);
+                    tipoComprobante.Descripcion = Funciones.ToString(dt.Rows[n]["Descripcion"]);
                     tipoComprobantes.Add(tipoComprobante);
                 }
             }

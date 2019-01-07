@@ -2,11 +2,12 @@
     @if (Session["TipoUsuario"].ToString() != "")
     {
         <li>@Html.ActionLink("Crear Usuario", "CrearUsuario", "Usuario")</li>
-        <li>@Html.Label(Session["NombreUsuario"].ToString())</li>
+        @*<li>@Html.Label(Session["NombreUsuario"].ToString())</li>*@
+        <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
     }
     else
     {
-        <li>@Html.ActionLink("Iniciar Sesion", "Index", "Login")</li>
+        <li>@Html.ActionLink("Iniciar Sesion", "Index", "Home")</li>
     }
 </ul>
-}
+

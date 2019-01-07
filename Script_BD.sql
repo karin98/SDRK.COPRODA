@@ -30,7 +30,7 @@ CREATE TABLE Usuario (
 CREATE TABLE TipoCliente (
 	IdTipoCliente VARCHAR(6) PRIMARY KEY
 	,TipoCliente VARCHAR(50)
-	,Decripcion VARCHAR(50)
+	,Descripcion VARCHAR(50)
 	);
 
 CREATE TABLE Cliente (
@@ -93,7 +93,7 @@ CREATE TABLE Proovedor (
 
 CREATE TABLE Pedido (
 	IdPedido INT AUTO_INCREMENT PRIMARY KEY
-	,NumeroPedido INT AUTO_INCREMENT
+	,NumeroPedido INT
 	,IdUsuario INT
 	,IdCliente INT
 	,DireccionFacturacion VARCHAR(50)

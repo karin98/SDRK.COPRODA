@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SDRK.COPRODA.Modelo.Cliente>
+@using SDRK.COPRODA.Modelo
+<div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nombre y Apellidos</th>
+                <th>Tipo de Cliente</th>
+                <th>DocumentoIdentidad</th>
+                <th>RazonSocial</th>
+                <th>RUC</th>
+                <th>Telefono</th>
+                <th>Celular</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (SDRK.COPRODA.Modelo.Cliente cliente in Model)
+                {
+                    <tr>
+                        @* <td><a href="@Url.Action("PedidoEditar", new { idPedido = pedido.IdPedido, origen = "Pedidos" })">@pedido.IdPedido</a></td>*@
+                        <td>@Html.ActionLink(cliente.Nombre + " " + cliente.Apellido, "ClienteEditar", "Cliente", new { IdCliente = cliente.IdCliente })</td>
+                        <td>@cliente.IdTipoCliente</td>
+                        <td>@cliente.DocumentoIdentidad</td>
+                        <td>@cliente.RazonSocial</td>
+                        <td>@cliente.RUC</td>
+                        <td>@cliente.Telefono</td>
+                        <td>@cliente.Celular</td>
+                        <td>@cliente.EstadoCliente</td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Nombre y Apellidos</th>
+                <th>Tipo de Cliente</th>
+                <th>DocumentoIdentidad</th>
+                <th>RazonSocial</th>
+                <th>RUC</th>
+                <th>Telefono</th>
+                <th>Celular</th>
+                <th>Estado</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>

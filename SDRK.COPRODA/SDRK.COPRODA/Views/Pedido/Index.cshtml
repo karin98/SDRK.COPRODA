@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Pedidos</h2>
+
+<div id="divPedidoListar">
+    @Html.Action("PedidoListar", "Pedido", new { IdPedido = 0 })
+</div>
+<div class="form-group">
+    <div class="col-md-10">
+        <input value="Nuevo Pedido" class="btn btn-default" onclick="location.href = '/Pedido/PedidoCrear';" />
+    </div>
+</div>
+<br />

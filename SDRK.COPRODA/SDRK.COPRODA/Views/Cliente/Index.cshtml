@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Nuestros Clientes</h2>
+<br />
+<div id="divClienteListar">
+    @Html.Action("ClienteListar", "Cliente", new { IdCliente = 0 })
+</div>
+<div class="form-group">
+    <div class="col-md-10">
+        <input value="Registrar Nuevo Cliente" class="btn btn-default" onclick="location.href = '/Cliente/ClienteCrear';" />
+    </div>
+</div>
+<br />

@@ -9,7 +9,7 @@ namespace SDRK.COPRODA.Modelo
 {
     public class Cliente
     {
-        [Required]
+        
         public int IdCliente { get; set; }
 
         [Required(ErrorMessage = "El Tipo de Cliente es obligatorio.")]
@@ -27,13 +27,13 @@ namespace SDRK.COPRODA.Modelo
         [Required]
         public string DocumentoIdentidad { get; set; }
 
-        [Required]
+      
         public string RazonSocial { get; set; }
 
         [Required]
         public string RUC { get; set; }
 
-        [Required]
+        
         public string Telefono { get; set; }
 
         [Required]
@@ -46,8 +46,14 @@ namespace SDRK.COPRODA.Modelo
         public string EstadoCliente { get; set; }
 
         public string CreadoPor { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaCreacion { get; set; }
         public string ModificadoPor { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime FechaModificacion { get; set; }
     }
 }
