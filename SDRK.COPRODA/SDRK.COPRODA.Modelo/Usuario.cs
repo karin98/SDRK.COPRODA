@@ -12,26 +12,26 @@ namespace SDRK.COPRODA.Modelo
         public int IdUsuario { get; set; }
 
         [Display(Name = "Tipo de Usuario")]
-        [Required(ErrorMessage = "El Campo es obligatorio.")]
+        //[Required(ErrorMessage = "El Campo es obligatorio.")]
         public string TipoUsuario { get; set; }
    
-        [Required(ErrorMessage = "El Campo es obligatorio.")]
+        //[Required(ErrorMessage = "El Campo es obligatorio.")]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "El Campo es obligatorio.")]
         public string Apellido { get; set; }
 
         [Display(Name = "Tipo de Documento de Identidad")]
-        [Required(ErrorMessage = "El Campo es obligatorio.")]
+        //[Required(ErrorMessage = "El Campo es obligatorio.")]
         public string IdTipoDocumentoIdentidad { get; set; }
 
         [Display(Name = "Documento de Identidad")]
-        [Required(ErrorMessage = "El Campo es obligatorio.")]
+        //[Required(ErrorMessage = "El Campo es obligatorio.")]
         public string DocumentoIdentidad { get; set; }
 
         public string Telefono { get; set; }
 
-        [Required(ErrorMessage = "El Campo es obligatorio.")]
+        //[Required(ErrorMessage = "El Campo es obligatorio.")]
         public string Celular { get; set; }
 
         [Display(Name = "Usuario")]
@@ -43,7 +43,6 @@ namespace SDRK.COPRODA.Modelo
         public string ClaveAcceso { get; set; }
 
         [Display(Name = "Estado")]
-        [Required]
         public string EstadoUsuario { get; set; }
 
         public string CreadoPor { get; set; }

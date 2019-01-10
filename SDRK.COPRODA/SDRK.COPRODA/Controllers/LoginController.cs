@@ -27,24 +27,30 @@ namespace SDRK.COPRODA.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Login(Usuario usuario)
         {
-            Usuario usuarioDatos = lnUsuario.Usuario_Validar(usuario.UsuarioCD, usuario.ClaveAcceso);
-            Session["MensajeLogin"] = "";
-            if (usuario.UsuarioCD == usuario.UsuarioCD && usuario.ClaveAcceso == usuario.ClaveAcceso)
+            if ( (usuario.UsuarioCD != null && usuario.ClaveAcceso != null))
             {
-                Session["Login"] = true;
-                Session["IdUsuario"] = usuarioDatos.IdUsuario;
-                Session["NombreUsuario"] = usuarioDatos.Nombre;
-                Session["ApellidoUsuario"] = usuarioDatos.Apellido;
-                Session["TipoUsuario"] = usuarioDatos.TipoUsuario;
-                Session["Usuario"] = usuarioDatos.UsuarioCD;
-                return RedirectToAction("Index", "Inicio");
+                Usuario usuarioDatos = lnUsuario.Usuario_Validar(usuario.UsuarioCD, usuario.ClaveAcceso);
+                Session["MensajeLogin"] = "";
+                if (usuario.UsuarioCD == usuario.UsuarioCD && usuario.ClaveAcceso == usuario.ClaveAcceso)
+                {
+                    Session["Login"] = true;
+                    Session["IdUsuario"] = usuarioDatos.IdUsuario;
+                    Session["NombreUsuario"] = usuarioDatos.Nombre;
+                    Session["ApellidoUsuario"] = usuarioDatos.Apellido;
+                    Session["TipoUsuario"] = usuarioDatos.TipoUsuario;
+                    Session["Usuario"] = usuarioDatos.UsuarioCD;
+                    return RedirectToAction("Index", "Inicio");
+                }
+                else
+                {
+                    Session["MensajeLogin"] = "Credenciales Incorrectas";
+                    return View();
+                }
             }
             else
             {
-                Session["MensajeLogin"] = "Credenciales Incorrectas";
                 return View();
             }
-
         }
     }
 }
